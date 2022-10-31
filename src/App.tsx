@@ -1,11 +1,19 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import AppContextProvider from "./providers/AppContextProviders"
+import LandingPage from "./view/LandingPage"
 
 function App() {
 
   return (
-    <div className="App">
-      <button className="btn bg-rose-500 px-3 py-1 mx-auto text-center capitalize rounded text-white">Hello</button>
-    </div>
+    <AppContextProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage/>} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </AppContextProvider>
   )
 }
 
