@@ -40,7 +40,7 @@ function LandingPage(){
             
             {/* computer view */}
             <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid xs={12} item md={3} lg={2} xl={2} position="relative" sx={{display : {
+                <Grid xs={12} item md={3} lg={2.5} xl={3} position="relative" sx={{display : {
                     // xs: "none"
 
                 }}}>
@@ -73,7 +73,7 @@ function LandingPage(){
                     </Paper>
                     
                 </Grid>
-                <Grid item xs={12} sm={12} md={10} lg={10} position="relative">
+                <Grid item xs={12} sm={12} md={9} lg={9}>
                     <Typography align="left">aku</Typography>
                 </Grid>
             </Grid>
