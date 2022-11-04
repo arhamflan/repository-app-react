@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { AccountCircle, GridView, Logout, Menu, Style, LocalLibrary, AutoStoriesSharp } from "@mui/icons-material";
 
-import styles from "../styled/GlassEffectWhite.module.css"
+import styles from "../../styled/GlassEffectWhite.module.css"
 
 function LandingPage(){
 
@@ -49,7 +49,7 @@ function LandingPage(){
             
             {/* computer view */}
             <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid xs={12} item md={3} lg={2.5} xl={3} position="relative" sx={{display : {
+                <Grid xs={12} item md={3} lg={2.5} xl={2} position="relative" sx={{display : {
                     // xs: "none"
 
                 }}}>
@@ -82,7 +82,7 @@ function LandingPage(){
                     </Paper>
                     
                 </Grid>
-                <Grid item xs={12} sm={12} md={9} lg={9}>
+                <Grid item xs={12} sm={12} md={9} lg={10}>
                     <Typography align="left">aku</Typography>
                 </Grid>
             </Grid>
