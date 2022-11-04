@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import AppContextProvider from "./providers/AppContextProviders"
-import LandingPage from "./view/LandingPage"
+import LandingPage from "./view/pages/LandingPage"
 
 function App() {
 
