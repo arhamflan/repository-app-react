@@ -22,22 +22,31 @@ function LoginPage(){
         <>
             <Box sx={{
                 justifyContent: "center",
-                display: "grid",
+                display: {
+                    xs: "grid",
+                },
                 alignItems: "center",
-                height:"100vh"
+                height:"100vh",
                 }}>
+
                 <form>
                 <Typography fontWeight={500} textAlign={"center"} marginBottom={5}>Sign In Repository App</Typography>
                 <FormGroup>
                 <TextField label="Email Address" InputProps={{disableUnderline: true}} type={"email"}  variant="filled" size="small" sx={{
                     marginBottom: 2,
-                    width: 400
+                    width: {
+                        xs: 300,
+                        sm: 400
+                    }
                 }} required/>
                 </FormGroup>
                 <FormGroup>
                 <TextField label="Password" InputProps={{disableUnderline: true}} variant="filled" size="small" type={"password"} sx={{
                     marginBottom: 2,
-                    width: 400
+                    width: {
+                        xs: 300,
+                        sm: 400
+                    }
                 }}/>
                 </FormGroup>
                 <Link href="/" underline="none">

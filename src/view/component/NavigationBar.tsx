@@ -1,6 +1,7 @@
 import { Box, AppBar, Toolbar, IconButton, Typography, Menu, MenuItem, Avatar, Divider, ListItemIcon } from "@mui/material";
 
-import { MenuBook, AccountCircle, PersonAdd, Settings, Logout } from "@mui/icons-material";
+import { AccountCircle, PersonAdd, Settings, Logout } from "@mui/icons-material";
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 import styles from "../../styled/GlassEffectWhite.module.css"
@@ -39,7 +40,7 @@ function NavigationBar(){
                     <Toolbar>
                         <Box marginRight={2}>
                             <IconButton>
-                                <MenuBook sx={{color: "white"}}/>
+                                <MenuIcon sx={{color: "white"}}/>
                             </IconButton>
                         </Box>
                         <Typography>Repository App</Typography>
@@ -52,7 +53,6 @@ function NavigationBar(){
                             anchorEl={anchorEl}
                             id="account-menu"
                             open={open}
-                            onClose={handleClose}
                             onClick={handleClose}
                             PaperProps={{
                             elevation: 0,
