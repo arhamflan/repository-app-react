@@ -1,6 +1,6 @@
-import { Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, Link } from "@mui/material";
+import { Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, Link, ListItem } from "@mui/material";
 
-import { GridView, Style, LocalLibrary, AutoStoriesSharp, Logout } from "@mui/icons-material";
+import { GridView, Style, LocalLibrary, AutoStoriesSharp, Logout, SettingsAccessibility, ManageAccounts } from "@mui/icons-material";
 
 
 function Sidebar(){
@@ -25,6 +25,14 @@ function Sidebar(){
                         <Typography variant="body2">Data Pengajuan Buku</Typography>
                     </MenuItem>
                     <Divider/>
+                    <MenuItem>
+                        <ListItemIcon><SettingsAccessibility/></ListItemIcon>
+                        <Typography variant="body2">Pengaturan Akses User</Typography>
+                    </MenuItem>
+                    <MenuItem>
+                        <ListItemIcon><ManageAccounts/></ListItemIcon>
+                        <Typography variant="body2">Pengaturan Akun</Typography>
+                    </MenuItem>
                     <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
                     <Link underline="none" color={"inherit"} href="/login">
                     <MenuItem>

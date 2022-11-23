@@ -84,29 +84,28 @@ function NavigationBar(){
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
                             <MenuItem>
-                            <Avatar /> Profile
+                            <ListItemIcon><AccountCircle/></ListItemIcon>
+                            <Typography variant="body2">Profil Saya</Typography>
                             </MenuItem>
-                            <MenuItem>
-                            <Avatar /> My account
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem>
-                            <ListItemIcon>
-                                <PersonAdd fontSize="small" />
-                            </ListItemIcon>
-                            Add another account
-                            </MenuItem>
-                            <MenuItem>
+                            <MenuItem sx={{
+                                display: {
+                                    sm: 'none'
+                                }
+                            }}>
                             <ListItemIcon>
                                 <Settings fontSize="small" />
                             </ListItemIcon>
-                            Settings
+                            <Typography variant="body2">Settings</Typography>
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem sx={{
+                                display: {
+                                    sm: "none"
+                                }
+                            }}>
                             <ListItemIcon>
                                 <Logout fontSize="small" />
                             </ListItemIcon>
-                            Logout
+                            <Typography variant="body2">Logout</Typography>
                             </MenuItem>
                         </Menu>
                     </Toolbar>
