@@ -1,4 +1,4 @@
-import { Box, TextField, Typography, Button, FormGroup, Divider } from "@mui/material";
+import { Box, TextField, Typography, Button, FormGroup, Divider, Card } from "@mui/material";
 
 import {Link} from "@mui/material";
 
@@ -7,6 +7,12 @@ import { loginHooks } from "../../../use-case/auth/loginHooks";
 
 import { useNavigate } from "react-router-dom";
 
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+
+
+import umLogo from "../../../assets/logo-um.png"
+import illustrationLogin from "../../../assets/illustration-login.png"
 
 function LoginPage(){
 
@@ -23,53 +29,87 @@ function LoginPage(){
     return (
         <>
             <Box sx={{
-                justifyContent: "center",
-                display: {
-                    xs: "grid",
-                },
-                alignItems: "center",
+                position: 'relative',
                 height:"100vh",
-                }}>
+                overflow: "hidden",
+                background : "#FFFDF4",
+                zIndex: 10
+            }}>
 
-                <form>
-                <Typography fontWeight={500} textAlign={"center"} marginBottom={5}>Sign In Repository App</Typography>
-                <FormGroup>
-                <TextField label="Email Address" InputProps={{disableUnderline: true}} type={"email"}  variant="filled" size="small" sx={{
-                    marginBottom: 2,
-                    width: {
-                        xs: 300,
-                        sm: 400
-                    }
-                }} required/>
-                </FormGroup>
-                <FormGroup>
-                <TextField label="Password" InputProps={{disableUnderline: true}} variant="filled" size="small" type={"password"} sx={{
-                    marginBottom: 2,
-                    width: {
-                        xs: 300,
-                        sm: 400
-                    }
-                }}/>
-                </FormGroup>
-                <Link href="/" underline="none">
-                    <Button variant="contained" fullWidth type="submit">Submit</Button>
-                </Link>
+                
+
                 <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginY: 1
-                }}>
-                    <Typography fontWeight={400}>Don't have account?</Typography>
-                    <Typography fontWeight={400}>Login Using</Typography>
+                    justifyContent: "center",
+                    display: {
+                        xs: "grid",
+                    },
+                    alignItems: "center",
+                    height: "100vh",
+                    position: "relative",
+                    zIndex: 50
+                    }}>
+                    
+                    <Box>
+                        <Box sx={{marginBottom: 5, width: "full", alignContent:"center", justifyContent:"center", alignItems:"center", display: "flex"}}>
+                            <img src={umLogo}/>
+                        </Box>
+
+                        <Card sx={{ minWidth: 400, minHeight: 300, borderRadius: 7 }}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 25, textAlign: "center", fontWeight: 900,  }} gutterBottom>
+                                Masuk Perpus
+                            </Typography>
+                            <Typography color={"#656565"} textAlign={"center"}>
+                            Hai kamu, Ayo bergabung banyak keseruan
+                            <br/>
+                            menantimu
+                            </Typography>
+                            <Box sx={{width: "full", alignContent: "center", display: "flex", justifyContent: "center"}}>
+                                <img src={illustrationLogin} width="300"/>
+                            </Box>
+                        </CardContent>
+                        <CardActions>
+                            <Box sx={{alignContent:"center", marginX: "auto", marginBottom: 2}}>
+                            <GoogleLogin
+                                onSuccess={handleGoogleLogin}
+                                width="300px"
+                            />
+                            </Box>
+                        </CardActions>
+                    </Card>
+                    </Box>
+
+                    
+
                 </Box>
-                <GoogleLogin
-                    onSuccess={handleGoogleLogin}
-                    auto_select
-                    width="1000px"
+
+                <Box
+                    sx={{
+                        width: 870,
+                        height: 950,
+                        backgroundColor: '#F8C815',
+                        position: 'absolute',
+                        bottom: -150,
+                        left: -200,
+                        top: 200,
+                        borderRadius: 50,
+                        animation: "spin 2s linear infinite",
+                        transform: "rotate(50deg)",
+                        display: {
+                            xs: "none",
+                            md: "block"
+                        },
+                        zIndex: "30"
+                    }}
                 />
-                </form>
-            </Box>
+
+
+            </Box>  
+            
+            {/* <GoogleLogin
+                        onSuccess={handleGoogleLogin}
+                        width="1000px"
+                    /> */}
         </>
     )
 }

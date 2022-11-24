@@ -6,6 +6,7 @@ export function loginHooks(data: any): any{
         }).then(response => {
             return true
         }).catch(e => {
+            console.log(e)
             return false
         })
     
