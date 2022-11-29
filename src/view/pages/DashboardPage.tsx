@@ -9,7 +9,7 @@ import styles from "../../styled/GlassEffectWhite.module.css"
 import NavigationBar from "../component/NavigationBar";
 import Sidebar from "../component/Sidebar";
 
-function LandingPage(){
+function DashboardPage(){
 
     return (
         <>
@@ -17,7 +17,7 @@ function LandingPage(){
             
             {/* computer view */}
             <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid xs={12} item md={4} lg={2.5} position="relative" sx={{
+                <Grid xs={12} sm={4} item md={4} lg={2.5} position="relative" sx={{
                     display: {
                         xs: 'none',
                         sm: 'block'
@@ -33,4 +33,4 @@ function LandingPage(){
     )
 }
 
-export default LandingPage;
+export default DashboardPage;

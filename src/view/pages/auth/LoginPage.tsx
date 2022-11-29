@@ -13,6 +13,7 @@ import CardContent from '@mui/material/CardContent';
 
 import umLogo from "../../../assets/logo-um.png"
 import illustrationLogin from "../../../assets/illustration-login.png"
+import { useEffect } from "react";
 
 function LoginPage(){
 
@@ -20,11 +21,17 @@ function LoginPage(){
 
     const handleGoogleLogin = async(data: any) => {
         const useLoginHooks = await loginHooks(data)
-        console.log(useLoginHooks)
         if(useLoginHooks == true){
             navigate('/')
         }
     }
+
+    useEffect(() => {
+        if(localStorage.getItem("token") !== null){
+            console.log(localStorage.getItem("token"))
+            navigate("/")
+        }
+    }, [])
 
     return (
         <>
@@ -54,7 +61,13 @@ function LoginPage(){
                             <img src={umLogo}/>
                         </Box>
 
-                        <Card sx={{ minWidth: 400, minHeight: 300, borderRadius: 7 }}>
+                        <Card sx={{ 
+                            minWidth: {
+                                md: 200,
+                                xl: 400
+                            },
+                            minHeight: 300,
+                            borderRadius: 7 }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 25, textAlign: "center", fontWeight: 900,  }} gutterBottom>
                                 Masuk Perpus
@@ -65,7 +78,7 @@ function LoginPage(){
                             menantimu
                             </Typography>
                             <Box sx={{width: "full", alignContent: "center", display: "flex", justifyContent: "center"}}>
-                                <img src={illustrationLogin} width="300"/>
+                                <img src={illustrationLogin} width="200"/>
                             </Box>
                         </CardContent>
                         <CardActions>

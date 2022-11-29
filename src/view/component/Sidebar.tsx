@@ -1,9 +1,20 @@
 import { Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, Link, ListItem } from "@mui/material";
 
 import { GridView, Style, LocalLibrary, AutoStoriesSharp, Logout, SettingsAccessibility, ManageAccounts } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 function Sidebar(){
+
+    // const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        console.log(localStorage.getItem("token"))
+        // navigate('/login')
+    }
+
+
     return (
         <>
             <Paper elevation={0} variant="outlined" sx={{ border: 0, bgcolor:"#eceff1", height: "80vh", borderRadius: 5, boxShadow: 5, position: "sticky", top: 98 , marginY: "auto"}}>
@@ -35,7 +46,7 @@ function Sidebar(){
                     </MenuItem>
                     <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
                     <Link underline="none" color={"inherit"} href="/login">
-                    <MenuItem>
+                    <MenuItem onClick={handleLogout}>
                         <ListItemIcon><Logout/></ListItemIcon>
                         <Typography variant="body2">Logout</Typography>
                     </MenuItem>
