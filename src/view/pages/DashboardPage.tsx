@@ -26,7 +26,7 @@ function DashboardPage(){
                     <Sidebar/>             
                 </Grid>
                 <Grid item xs={12} md={8} lg={9}>
-                    <Typography>Testing</Typography>
+                    <Typography>Dashboard Page</Typography>
                 </Grid>
             </Grid>
         </>

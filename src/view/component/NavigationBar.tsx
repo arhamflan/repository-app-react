@@ -1,7 +1,9 @@
-import { Box, AppBar, Toolbar, IconButton, Typography, Menu, MenuItem, Avatar, Divider, ListItemIcon } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton, Typography, Menu, MenuItem, Avatar, Divider, ListItemIcon} from "@mui/material";
 
 import { AccountCircle, PersonAdd, Settings, Logout } from "@mui/icons-material";
 import MenuIcon from '@mui/icons-material/Menu';
+
+import { Link } from "react-router-dom";
 
 
 import styles from "../../styled/GlassEffectWhite.module.css"
@@ -83,10 +85,12 @@ function NavigationBar(){
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <MenuItem>
-                            <ListItemIcon><AccountCircle/></ListItemIcon>
-                            <Typography variant="body2">Profil Saya</Typography>
-                            </MenuItem>
+                            <Link to="/profile" style={{textDecoration: "none"}}>
+                                <MenuItem>
+                                    <ListItemIcon><AccountCircle/></ListItemIcon>
+                                    <Typography variant="body2" color={"black"}>Profil Saya</Typography>
+                                </MenuItem>
+                            </Link>
                             <MenuItem sx={{
                                 display: {
                                     sm: 'none'
