@@ -6,38 +6,39 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/system";
 import { LocalDining } from "@mui/icons-material";
+import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
+import { useNavigate } from "react-router-dom";
+import { logoutHooks } from "../../use-case/auth/logoutHooks";
+import getProfileHooks from "../../use-case/auth/getProfileHooks";
 
 
 
 function ProfilePage(){
 
     const [page, setPage] = useState("Profile")
-    const [loading, setLoading] = useState(false)
     const [user, setUser] = useState<any>()
 
-    const token = localStorage.getItem("token")
+    const {loading, getUser, setLoading} = getProfileHooks()
 
-    const handleChangePage = () => {
-        setPage("Testing")
-    }
+    
+
+    const navigate = useNavigate()
 
     useEffect(() => {
-
+        
         setLoading(true)
 
-        axios.get('http://167.172.64.153:3000/api/profile', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response) => {
-            setUser(response.data.data)
-            console.log(response.data.data)
-            setTimeout(() => {
-                setLoading(false)
-            }, 3000)
-        }).catch((error) => {
-            console.log(error)
-        })
+        const {expiredToken} = checkTokenHooks()
+        
+
+
+        if(expiredToken === true){
+            logoutHooks()
+            navigate('/login')
+            setLoading(false)
+        } else {
+            getUser()
+        }
     }, [])
 
     return (

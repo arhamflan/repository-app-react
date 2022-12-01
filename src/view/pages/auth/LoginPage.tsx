@@ -1,4 +1,4 @@
-import { Box, TextField, Typography, Button, FormGroup, Divider, Card } from "@mui/material";
+import { Box, TextField, Typography, Button, FormGroup, Divider, Card, duration, Backdrop, CircularProgress } from "@mui/material";
 
 import {Link} from "@mui/material";
 
@@ -13,16 +13,34 @@ import CardContent from '@mui/material/CardContent';
 
 import umLogo from "../../../assets/logo-um.png"
 import illustrationLogin from "../../../assets/illustration-login.png"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
+import backdropHooks from "../../../use-case/component/backdropHooks";
 
 function LoginPage(){
 
     const navigate: any = useNavigate()
 
+    const {openBackdrop, setOpenBackdrop} = backdropHooks()
+
     const handleGoogleLogin = async(data: any) => {
+
+        setOpenBackdrop(true)
+        
         const useLoginHooks = await loginHooks(data)
-        if(useLoginHooks == true){
-            navigate('/')
+        if(useLoginHooks === true){
+            setOpenBackdrop(false)
+            toast.success('Berhasil login',{
+                duration: 2000,
+                position: 'bottom-center'
+            })
+            setTimeout(() => {
+                navigate('/')
+            }, 2000)
+        } else {
+            toast.error('Gagal login', {
+                duration: 2000
+            })
         }
     }
 
@@ -118,11 +136,16 @@ function LoginPage(){
 
 
             </Box>  
+            <Backdrop 
+                open={openBackdrop}
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+            >
+
+                <CircularProgress color="inherit"/>
+
+            </Backdrop>
             
-            {/* <GoogleLogin
-                        onSuccess={handleGoogleLogin}
-                        width="1000px"
-                    /> */}
+            <Toaster/>
         </>
     )
 }
