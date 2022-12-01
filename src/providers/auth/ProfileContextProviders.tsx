@@ -1,31 +1,34 @@
-import { createContext, Reducer, useReducer } from "react";
+import { createContext, Dispatch, useReducer } from "react";
 import { IProfile } from "../../entity/interface/IProfile";
 import { IActions } from "../../entity/interface/IActions";
-import { ReducerProfileAction } from "../../entity/type/TActionProfile";
+import { TActionProfile } from "../../entity/type/TActionProfile";
 
 
 export const ProfileContext = createContext<IProfile | any>(null);
 
-export const profileReducer = (state: IProfile, action: IActions) => {
+export const profileReducer = (state: IProfile, action: TActionProfile) => {
     
-    return state
+    switch(action.types){
+        case "GET_PROFILE":
+            console.log(action.payload)
+    }
 
 }
 
 
 export const ProfileContextProvider = ({children} : any) => {
-    const [profile, dispatch] = useReducer<any>(profileReducer, null)
+    const [state, dispatch] = useReducer<any>(profileReducer, {profile: {}})
 
-    function getProfile(profile: IProfile): void{
+    function getProfile(profile: IProfile){
+        // @ts-ignore
         dispatch({
-            type: "GET_WAREHOUSE",
+            types: "GET_PROFILE",
             payload: profile
         })
-
     }
 
     return (
-        <ProfileContext.Provider value={{profile, getProfile}}>
+        <ProfileContext.Provider value={{state, getProfile}}>
             {children}
         </ProfileContext.Provider>
     )

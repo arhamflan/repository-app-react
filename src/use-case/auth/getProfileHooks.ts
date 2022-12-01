@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { ProfileContextProvider } from "../../providers/auth/ProfileContextProviders";
+import { useProfileContext } from "../../providers/use/useProfileContext";
 
 export default function getProfileHooks(){
     const [loading, setLoading] = useState<boolean>(false)
+
+    const {getProfile} = useProfileContext()
 
     const token = localStorage.getItem("token")
     const getUser = () => {
@@ -11,6 +15,7 @@ export default function getProfileHooks(){
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
+            getProfile(response.data.data)
             setTimeout(() => {
                 setLoading(false)
             }, 2000)

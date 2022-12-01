@@ -1,4 +1,3 @@
 
-export enum ReducerProfileAction {
-    GET_PROFILE
-}
+export type TActionProfile = 
+ | {types: "GET_PROFILE", payload: any }
