@@ -10,6 +10,7 @@ import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
 import { useNavigate } from "react-router-dom";
 import { logoutHooks } from "../../use-case/auth/logoutHooks";
 import getProfileHooks from "../../use-case/auth/getProfileHooks";
+import {useProfileContext} from "../../providers/use/useProfileContext";
 
 
 
@@ -20,9 +21,10 @@ function ProfilePage(){
 
     const {loading, getUser, setLoading} = getProfileHooks()
 
-    
-
     const navigate = useNavigate()
+
+    const {state} = useProfileContext()
+
 
     useEffect(() => {
         
@@ -38,6 +40,7 @@ function ProfilePage(){
             setLoading(false)
         } else {
             getUser()
+            console.log(state)
         }
     }, [])
 
@@ -75,13 +78,13 @@ function ProfilePage(){
                                                 height={80}
                                             />
                                         }
-                                        {user && !loading ? 
+                                        {state && !loading ?
                                             <Avatar sx={{
                                                 height: 80,
                                                 width: 80,
                                                 justifyContent: "center",
                                                 alignItems: "center"
-                                            }} src={user.picture}/>
+                                            }} src={state.profile.picture}/>
                                             : 
                                             <></>
                                         }
@@ -97,8 +100,8 @@ function ProfilePage(){
                                                     sx={{marginX: "auto"}}
                                                 />
                                             }
-                                            {user && !loading ?  
-                                                user.fullname 
+                                            {state && !loading ?
+                                                state.profile.fullname
                                                 : 
                                                 <></>
                                             }

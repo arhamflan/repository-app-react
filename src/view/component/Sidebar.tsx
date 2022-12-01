@@ -1,6 +1,6 @@
 import { Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, ListItem } from "@mui/material";
 
-import { GridView, Style, LocalLibrary, AutoStoriesSharp, Logout, SettingsAccessibility, ManageAccounts } from "@mui/icons-material";
+import { GridView, Style, LocalLibrary, AutoStoriesSharp, Logout, SettingsAccessibility, ManageAccounts, Cookie } from "@mui/icons-material";
 import { useNavigate, Link } from "react-router-dom";
 
 
@@ -10,6 +10,7 @@ function Sidebar(){
 
     const handleLogout = () => {
         localStorage.removeItem("token")
+        
         navigate('/login')
     }
 

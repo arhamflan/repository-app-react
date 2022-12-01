@@ -11,13 +11,20 @@ export const profileReducer = (state: IProfile, action: TActionProfile) => {
     switch(action.types){
         case "GET_PROFILE":
             console.log(action.payload)
+            const data = action.payload
+            return {
+                ...state,
+                profile: action.payload
+            }
     }
 
 }
 
 
 export const ProfileContextProvider = ({children} : any) => {
-    const [state, dispatch] = useReducer<any>(profileReducer, {profile: {}})
+    const [state, dispatch] = useReducer<any>(profileReducer, {
+        profile: {}
+    })
 
     function getProfile(profile: IProfile){
         // @ts-ignore
