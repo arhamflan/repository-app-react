@@ -82,10 +82,12 @@ function LoginPage(){
                         <Card sx={{ 
                             minWidth: {
                                 md: 200,
-                                xl: 400
+                                xl: 200
                             },
                             minHeight: 300,
-                            borderRadius: 7 }}>
+                            borderRadius: 7 ,
+                            padding: 3
+                        }}>
                         <CardContent>
                             <Typography sx={{ fontSize: 25, textAlign: "center", fontWeight: 900,  }} gutterBottom>
                                 Masuk Perpus
