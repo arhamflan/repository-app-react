@@ -20,7 +20,7 @@ function Sidebar(){
             <Paper elevation={0} variant="outlined" sx={{ border: 0, bgcolor:"#eceff1", height: "80vh", borderRadius: 5, boxShadow: 5, position: "sticky", top: 98 , marginY: "auto"}}>
                 <MenuList sx={{height: "100%", paddingTop: 2}}>
                     <Link to={"/"} style={{textDecoration: "none"}}>
-                        <MenuItem color="primary">
+                        <MenuItem color="primary" selected>
                             <ListItemIcon><GridView/></ListItemIcon>
                             <Typography variant="body2" color={"black"} >Dashboard</Typography>
                         </MenuItem>
@@ -37,9 +37,6 @@ function Sidebar(){
                         <ListItemIcon><AutoStoriesSharp/></ListItemIcon>
                         <Typography variant="body2">Data Pengajuan Buku</Typography>
                     </MenuItem>
-                    <MenuItem>
-                    </MenuItem>
-                    <Divider/>
                     <MenuItem>
                         <ListItemIcon><SettingsAccessibility/></ListItemIcon>
                         <Typography variant="body2">Pengaturan Akses User</Typography>
