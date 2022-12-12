@@ -4,7 +4,7 @@ import {useProfileContext} from "../../../../providers/use/useProfileContext";
 import {useEffect, useState} from "react";
 import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
-import {Avatar, Button, Grid, Skeleton, Typography} from "@mui/material";
+import {Avatar, Button, FormControl, FormHelperText, Grid, Input, InputLabel, Skeleton, Typography} from "@mui/material";
 import NavigationBar from "../../../component/NavigationBar";
 import Sidebar from "../../../component/Sidebar";
 import {Box} from "@mui/system";
@@ -167,7 +167,7 @@ function EditProfile(){
                                             />
                                         }
                                         {(state && !loading) ?
-                                            <TextField label={"Alamat"} defaultValue={state.profile.address} onChange={(e) => {
+                                            <TextField required label={"Alamat"} defaultValue={state.profile.address} onChange={(e) => {
                                                     setFormData({...formData, address: e.target.value})
                                                 }
                                             }/>
