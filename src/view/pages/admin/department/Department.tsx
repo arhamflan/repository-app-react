@@ -148,7 +148,7 @@ export default function Department(){
                             },
                             height: 500,
                             marginTop: 2,
-                        }}/> : <Typography>Internet Anda Bermasalah</Typography>
+                        }}/> : <Typography>Loading....</Typography>
                     }
                 </Grid>
             </Grid>
