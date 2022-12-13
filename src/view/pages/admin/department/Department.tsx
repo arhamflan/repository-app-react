@@ -1,5 +1,5 @@
 import NavigationBar from "../../../component/NavigationBar";
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, Grid, IconButton, Typography} from "@mui/material";
 import Sidebar from "../../../component/Sidebar";
 import {DataGrid, GridApi, GridCellValue, GridColDef} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
+import {Delete, Edit} from "@mui/icons-material";
 
 
 export default function Department(){
@@ -15,6 +16,7 @@ export default function Department(){
 
     const navigate = useNavigate()
 
+    const token = localStorage.getItem("token")
 
     const columns: GridColDef[] = [
         {
@@ -46,26 +48,49 @@ export default function Department(){
 
                     alert(JSON.stringify(thisRow.id, null, 4));
 
-                    navigate("/")
+                    navigate(`/edit-major/${thisRow.id}`)
                 };
 
-                return <Button onClick={onClick} sx={{textTransform: "capitalize"}}>Click</Button>;
+                const handleDelete = (e) => {
+                    e.stopPropagation();
+
+                    const api: GridApi = params.api
+                    const thisRow: Record<string, GridCellValue> = {};
+
+                    api
+                        .getAllColumns()
+                        .filter((c) => c.field !== '__check__' && !!c)
+                        .forEach(
+                            (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                        );
+
+                    axios.delete(`http://167.172.64.153:3000/api/field/${thisRow.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then((response) => {
+                        // @ts-ignore
+                        setFields(fields.filter((data, index) => data.id !== thisRow.id))
+                    }).catch((error) => {
+                        console.log(error.message)
+                    })
+                }
+
+                return <Box sx={{
+                    flexDirection: 'row',
+                    display: 'flex'
+                }}>
+                    <IconButton onClick={onClick}>
+                        <Edit/>
+                    </IconButton>
+                    <IconButton onClick={handleDelete}>
+                        <Delete/>
+                    </IconButton>
+                </Box>;
             },
         },
     ]
 
-    const rows = [
-        {id: 1, field: "Informatika"},
-        {id: 2, field: "Sistem Informasi"},
-        {id: 3, field: "Informatika"},
-        {id: 4, field: "Sistem Informasi"},
-        {id: 5, field: "Informatika"},
-        {id: 6, field: "Sistem Informasi"},
-        {id: 7, field: "Informatika"},
-        {id: 8, field: "Sistem Informasi"},
-        {id: 9, field: "Informatika"},
-        {id: 10, field: "Sistem Informasi"}
-    ]
 
     useEffect(() => {
         const {expiredToken} = checkTokenHooks()
@@ -110,7 +135,7 @@ export default function Department(){
                         marginTop: 5
                     }}>
                         <Typography variant={"h6"}>Data Jurusan</Typography>
-                        <Link to={"/"} style={{textDecoration: "none"}}>
+                        <Link to={"/add-major"} style={{textDecoration: "none"}}>
                             <Button variant={"contained"} sx={{
                                 textTransform: "capitalize"
                             }}>Tambah Data</Button>
@@ -123,7 +148,7 @@ export default function Department(){
                             },
                             height: 500,
                             marginTop: 2,
-                        }}/> : ''
+                        }}/> : <Typography>Internet Anda Bermasalah</Typography>
                     }
                 </Grid>
             </Grid>
