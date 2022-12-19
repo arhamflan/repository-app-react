@@ -158,7 +158,7 @@ function EditProfile(){
                                             sx={{marginX: "auto"}}
                                         />
                                     }
-                                    {(state.profile.address && !loading) ?
+                                    {(!loading) ?
                                         <TextField required label={"Alamat"} value={state.profile.address ? state.profile.address : ''} onChange={(e) => {
                                             setProfile({address : e.target.value, type: "address"})
                                         }
@@ -185,7 +185,7 @@ function EditProfile(){
                                             sx={{marginX: "auto"}}
                                         />
                                     }
-                                    {(state.profile.phone && !loading) ?
+                                    {(!loading) ?
                                         <TextField label={"Telepon"} value={state.profile.phone ? state.profile.phone : ''} onChange={(e) => {
                                             setProfile({phone : e.target.value, type: "phone"})
                                         }

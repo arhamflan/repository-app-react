@@ -76,16 +76,17 @@ function LoginPage(){
                     }}>
                     
                     <Box>
-                        <Box sx={{marginBottom: 5, width: "full", alignContent:"center", justifyContent:"center", alignItems:"center", display: "flex"}}>
+                        <Box sx={{marginBottom: 1, width: "full", alignContent:"center", justifyContent:"center", alignItems:"center", display: "flex"}}>
                             <img src={umLogo}/>
                         </Box>
 
                         <Card sx={{ 
                             minWidth: {
-                                md: 200,
-                                xl: 200
+                                md: 100,
+                                xl: 100
                             },
-                            minHeight: 300,
+                            maxWidth: 400,
+                            maxHeight: 360,
                             borderRadius: 7 ,
                             padding: 3
                         }}>

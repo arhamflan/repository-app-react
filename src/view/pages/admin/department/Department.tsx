@@ -12,6 +12,7 @@ import {Delete, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import getDepartmentHook from "../../../../use-case/department/getDepartmentHook";
+import deleteDepartmentHooks from "../../../../use-case/department/deleteDepartmentHooks";
 
 
 export default function Department(){
@@ -23,7 +24,11 @@ export default function Department(){
 
     const {state} = useDepartmentContext()
 
+    // @ts-ignore
     const {getData} = getDepartmentHook()
+
+
+    const {deleteDepartment} = useDepartmentContext()
 
     const columns: GridColDef[] = [
         {
@@ -33,7 +38,7 @@ export default function Department(){
         {
             field: "field",
             headerName: "Jurusan",
-            width: 1000
+            width: 500
         },
         {
             field: 'action',
@@ -57,7 +62,7 @@ export default function Department(){
                     navigate(`/edit-major/${thisRow.id}`)
                 };
 
-                const handleDelete = (e) => {
+                const handleDelete = async(e) => {
                     e.stopPropagation();
 
                     const api: GridApi = params.api
@@ -70,16 +75,16 @@ export default function Department(){
                             (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
                         );
 
-                    axios.delete(`http://167.172.64.153:3000/api/field/${thisRow.id}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }).then((response) => {
-                        // @ts-ignore
-                        setFields(fields.filter((data, index) => data.id !== thisRow.id))
-                    }).catch((error) => {
-                        console.log(error.message)
-                    })
+
+                    // @ts-ignore
+                    const data = await deleteDepartmentHooks(thisRow.id)
+                    if(data === true){
+                        console.log(true)
+                        // salahnya disini ke context
+                        deleteDepartment(thisRow.id)
+                    } else {
+                        console.log("Failed to delete")
+                    }
                 }
 
                 return <Box sx={{
@@ -119,7 +124,7 @@ export default function Department(){
                     width: "auto",
                     height: "auto",
                     justifyContent: "space-between",
-                    marginTop: 5
+                    marginTop: 1
                 }}>
                     <Typography variant={"h6"}>Data Jurusan</Typography>
                     <Link to={"/add-major"} style={{textDecoration: "none"}}>
@@ -139,7 +144,7 @@ export default function Department(){
                             borderColor: "rgba(184, 184, 184, 0.21)",
                             borderStyle: "dashed",
                         },
-                        height: 500,
+                        height: 420,
                         marginTop: 2,
                     }}/> : <Typography>Loading....</Typography>
                 }

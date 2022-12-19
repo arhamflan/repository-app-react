@@ -21,11 +21,20 @@ export const departmentReducer = (state: IDepartment, action: any) => {
             }
 
         case "EDIT_DEPARTMENT_DETAIL":
-            const data = state.departmentDetail
-            data.field = action.payload
+            const dataDetail = state.departmentDetail
+            dataDetail.field = action.payload
             return {
                 ...state.departmentDetail,
-                departmentDetail: data
+                departmentDetail: dataDetail
+            }
+
+
+        case "DELETE_DEPARTMENT_DATA":
+            const dataFilter = state.department
+            const afterFilter = dataFilter.filter((data, index) => data.id !== action.payload)
+            return {
+                ...state.department,
+                department: afterFilter
             }
     }
 
@@ -61,8 +70,16 @@ export const DepartmentContextProvider = ({children}: any) => {
         })
     }
 
+    function deleteDepartment(id: any){
+        // @ts-ignore
+        dispatch({
+            types: "DELETE_DEPARTMENT_DATA",
+            payload: id
+        })
+    }
+
     return (
-        <DepartmentContext.Provider value={{state, setDepartment, setDepartmentDetail, editDepartmentDetail}}>
+        <DepartmentContext.Provider value={{state, setDepartment, setDepartmentDetail, editDepartmentDetail, deleteDepartment}}>
             {children}
         </DepartmentContext.Provider>
     )

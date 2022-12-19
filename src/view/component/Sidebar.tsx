@@ -13,6 +13,8 @@ import {
 } from "@mui/icons-material";
 import {useNavigate, Link, useLocation} from "react-router-dom";
 import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
+import {useEffect} from "react";
+import {logoutHooks} from "../../use-case/auth/logoutHooks";
 
 
 function Sidebar(){
@@ -27,10 +29,20 @@ function Sidebar(){
         navigate('/login')
     }
 
+    useEffect(() => {
+        const {expiredToken} = checkTokenHooks()
+
+        if(expiredToken === true){
+            logoutHooks()
+            navigate("/login")
+        } else {
+            console.log("token is available to use")
+        }
+    })
 
     return (
         <>
-            <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "85vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
+            <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
                 {role.includes("admin") ?
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
                         <Link to={"/"} style={{textDecoration: "none"}}>
