@@ -7,6 +7,8 @@ import ButtonSubmit from "../../../component/ButtonSubmit";
 import NavigationBar from "../../../component/NavigationBar";
 import Sidebar from "../../../component/Sidebar";
 import axios from "axios";
+import Layout from "../../../layouts/Layout";
+import addDepartmentHooks from "../../../../use-case/department/addDepartmentHooks";
 
 
 function AddDepartment(){
@@ -18,19 +20,15 @@ function AddDepartment(){
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
-    function handleSubmit(e): void{
+    async function handleSubmit(e){
         e.preventDefault()
-        axios.post('http://167.172.64.153:3000/api/field', major, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response) => {
-            console.log(response)
+
+        const data = await addDepartmentHooks(major)
+        if(data === true){
             navigate("/major")
-        }).catch((error) => {
-            console.log(error)
-        })
-        // alert(major.field)
+        } else {
+            console.log(data)
+        }
     }
 
     useEffect(() => {
@@ -45,51 +43,38 @@ function AddDepartment(){
 
     return (
         <>
-            <NavigationBar/>
-
-            <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid item xs={12} sm={4} lg={2.5} position={"relative"} sx={{
-                    display: {
-                        xs: "none",
-                        sm: "block"
-                    }
+            <Layout>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "auto",
+                    height: "auto",
+                    justifyContent: "space-between",
+                    marginTop: 5,
+                    marginBottom: 5
                 }}>
-                    <Sidebar/>
-                </Grid>
-
-                <Grid item xs={12} md={8} lg={9}>
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "auto",
-                        height: "auto",
-                        justifyContent: "space-between",
-                        marginTop: 5,
-                        marginBottom: 5
-                    }}>
-                        <Typography variant={"h6"}>Input Data Jurusan</Typography>
-                    </Box>
-                    <Box sx={{
-                        width: "50%"
-                    }}>
-                        <form onSubmit={handleSubmit}>
-                            <FormGroup>
-                                <FormControl>
-                                    <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
-                                               onChange={(e) => {
-                                                   setMajor({...major, field: e.target.value})
-                                               }}
-                                    />
-                                </FormControl>
-                            </FormGroup>
-                            <FormControl fullWidth>
-                                <ButtonSubmit name={"Submit"}/>
+                    <Typography variant={"h6"}>Input Data Jurusan</Typography>
+                </Box>
+                <Box sx={{
+                    width: "50%"
+                }}>
+                    <form onSubmit={handleSubmit}>
+                        <FormGroup>
+                            <FormControl>
+                                <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
+                                           onChange={(e) => {
+                                               setMajor({...major, field: e.target.value})
+                                           }}
+                                />
                             </FormControl>
-                        </form>
+                        </FormGroup>
+                        <FormControl fullWidth>
+                            <ButtonSubmit name={"Submit"}/>
+                        </FormControl>
+                    </form>
 
-                    </Box>
-                </Grid>
-            </Grid>
+                </Box>
+            </Layout>
 
 
 

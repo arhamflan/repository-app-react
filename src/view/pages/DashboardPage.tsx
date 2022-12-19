@@ -13,6 +13,7 @@ import { isExpired } from "react-jwt";
 import { logoutHooks } from "../../use-case/auth/logoutHooks";
 import { useNavigate } from "react-router-dom";
 import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
+import Layout from "../layouts/Layout";
 
 
 
@@ -35,22 +36,9 @@ function DashboardPage(){
 
     return (
         <>
-            <NavigationBar/>
-            
-            {/* computer view */}
-            <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid xs={12} sm={4} item md={4} lg={2.5} position="relative" sx={{
-                    display: {
-                        xs: 'none',
-                        sm: 'block'
-                    }
-                }}>
-                    <Sidebar/>             
-                </Grid>
-                <Grid item xs={12} md={8} lg={9}>
-                    <Typography>Dashboard Page</Typography>
-                </Grid>
-            </Grid>
+            <Layout>
+
+            </Layout>
         </>
     )
 }

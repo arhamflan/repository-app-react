@@ -7,12 +7,30 @@ import { TActionProfile } from "../../entity/type/TActionProfile";
 export const ProfileContext = createContext<IProfile | any>(null);
 
 export const profileReducer = (state: IProfile, action: TActionProfile) => {
-    
+
     switch(action.types){
         case "GET_PROFILE":
             return {
                 ...state,
                 profile: action.payload
+            }
+
+        case "SET_PROFILE" :
+            const data = state.profile
+            console.log(action.payload)
+
+            if(action.payload.type === "phone"){
+                data.phone = action.payload.phone
+                return {
+                    ...state,
+                    profile: data
+                }
+            } else if(action.payload.type === "address"){
+                data.address = action.payload.address
+                return {
+                    ...state,
+                    profile: data
+                }
             }
     }
 
@@ -32,8 +50,16 @@ export const ProfileContextProvider = ({children} : any) => {
         })
     }
 
+    function setProfile(profile: IProfile, propertiesData: any){
+        // @ts-ignore
+        dispatch({
+            types: "SET_PROFILE",
+            payload: profile
+        })
+    }
+
     return (
-        <ProfileContext.Provider value={{state, getProfile}}>
+        <ProfileContext.Provider value={{state, getProfile, setProfile}}>
             {children}
         </ProfileContext.Provider>
     )

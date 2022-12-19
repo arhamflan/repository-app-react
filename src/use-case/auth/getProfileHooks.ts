@@ -9,8 +9,8 @@ export default function getProfileHooks(){
     const {getProfile} = useProfileContext()
 
     const token = localStorage.getItem("token")
-    const getUser = () => {
-        axios.get('http://167.172.64.153:3000/api/profile', {
+    const getUser = async() => {
+        await axios.get('http://167.172.64.153:3000/api/profile', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -19,9 +19,11 @@ export default function getProfileHooks(){
             setTimeout(() => {
                 setLoading(false)
             }, 2000)
+            return true
         }).catch((error) => {
             console.log(error)
             setLoading(false)
+            return false
         })
     }
 

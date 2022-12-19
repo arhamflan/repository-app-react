@@ -41,6 +41,7 @@ function LoginPage(){
             toast.error('Gagal login', {
                 duration: 2000
             })
+            setOpenBackdrop(false)
         }
     }
 
@@ -120,7 +121,7 @@ function LoginPage(){
                     sx={{
                         width: 870,
                         height: 950,
-                        backgroundColor: '#F8C815',
+                        backgroundColor: '#1369BA',
                         position: 'absolute',
                         bottom: -150,
                         left: -200,

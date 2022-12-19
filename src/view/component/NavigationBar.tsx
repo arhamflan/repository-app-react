@@ -26,19 +26,18 @@ function NavigationBar(){
     return (
         <>
         <Box sx={{
-                flexGrow: 1, 
-                paddingX: 2, 
-                paddingY: 1, 
-                position: "sticky",
-                top: 0,
-                right: 0,
-                left: 0
+                    flexGrow: 1,
+                    paddingX: 2,
+                    paddingY: 1,
+                    top: 0,
+                    right: 0,
+                    left: 0
                 }}
-                
+
                 className={styles.glasseffect}
 
                 >
-                <AppBar position="sticky" sx={{borderRadius: 2}}>
+                <AppBar position={"sticky"} sx={{borderRadius: 2}}>
                     <Toolbar>
                         <Box marginRight={2}>
                             <IconButton>
@@ -78,7 +77,6 @@ function NavigationBar(){
                                 height: 10,
                                 bgcolor: 'background.paper',
                                 transform: 'translateY(-50%) rotate(45deg)',
-                                zIndex: 0,
                                 },
                             },
                             }}

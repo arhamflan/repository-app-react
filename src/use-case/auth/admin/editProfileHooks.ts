@@ -6,7 +6,14 @@ export default function editProfileHooks(data: object): any{
 
     const token = localStorage.getItem("token")
 
-    const editProfile = axios.put("http://167.172.64.153:3000/api/change-profile", data, {
+
+
+    const editProfile = axios.put("http://167.172.64.153:3000/api/change-profile", {
+        // @ts-ignore
+        phone: data.profile.phone,
+        // @ts-ignore
+        address: data.profile.address
+    }, {
         headers: {
             Authorization: `Bearer ${token}`
         }

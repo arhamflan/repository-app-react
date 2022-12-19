@@ -9,6 +9,7 @@ import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
 import {Delete, Edit} from "@mui/icons-material";
+import Layout from "../../../layouts/Layout";
 
 
 export default function Department(){
@@ -46,7 +47,6 @@ export default function Department(){
                             (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
                         );
 
-                    alert(JSON.stringify(thisRow.id, null, 4));
 
                     navigate(`/edit-major/${thisRow.id}`)
                 };
@@ -113,45 +113,38 @@ export default function Department(){
 
     return (
         <>
-            <NavigationBar/>
-
-            <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid item xs={12} sm={4} lg={2.5} position={"relative"} sx={{
-                    display: {
-                        xs: "none",
-                        sm: "block"
-                    }
+            <Layout>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "auto",
+                    height: "auto",
+                    justifyContent: "space-between",
+                    marginTop: 5
                 }}>
-                    <Sidebar/>
-                </Grid>
-
-                <Grid item xs={12} md={8} lg={9}>
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "auto",
-                        height: "auto",
-                        justifyContent: "space-between",
-                        marginTop: 5
-                    }}>
-                        <Typography variant={"h6"}>Data Jurusan</Typography>
-                        <Link to={"/add-major"} style={{textDecoration: "none"}}>
-                            <Button variant={"contained"} sx={{
-                                textTransform: "capitalize"
-                            }}>Tambah Data</Button>
-                        </Link>
-                    </Box>
-                    {fields ?
-                        <DataGrid columns={columns} rows={fields} sx={{
-                            '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                                border: `1px solid #f0f0f0`
-                            },
-                            height: 500,
-                            marginTop: 2,
-                        }}/> : <Typography>Loading....</Typography>
-                    }
-                </Grid>
-            </Grid>
+                    <Typography variant={"h6"}>Data Jurusan</Typography>
+                    <Link to={"/add-major"} style={{textDecoration: "none"}}>
+                        <Button variant={"contained"} sx={{
+                            textTransform: "capitalize"
+                        }}>Tambah Data</Button>
+                    </Link>
+                </Box>
+                {fields ?
+                    <DataGrid columns={columns} rows={fields} sx={{
+                        border: 2,
+                        borderColor: "rgba(184, 184, 184, 0.21)",
+                        borderStyle: "dashed",
+                        background: "white",
+                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                            border: 1,
+                            borderColor: "rgba(184, 184, 184, 0.21)",
+                            borderStyle: "dashed",
+                        },
+                        height: 500,
+                        marginTop: 2,
+                    }}/> : <Typography>Loading....</Typography>
+                }
+            </Layout>
         </>
     )
 

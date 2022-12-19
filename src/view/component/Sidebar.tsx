@@ -12,9 +12,12 @@ import {
     SchoolOutlined
 } from "@mui/icons-material";
 import {useNavigate, Link, useLocation} from "react-router-dom";
+import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
 
 
 function Sidebar(){
+
+    const {role} = checkTokenHooks()
 
     const navigate = useNavigate()
 
@@ -27,47 +30,57 @@ function Sidebar(){
 
     return (
         <>
-            <Paper elevation={0} variant="outlined" sx={{ border: 0, bgcolor:"#eceff1", height: "80vh", borderRadius: 5, boxShadow: 5, position: "sticky", top: 98 , marginY: "auto"}}>
-                <MenuList sx={{height: "100%", paddingTop: 2}}>
-                    <Link to={"/"} style={{textDecoration: "none"}}>
-                        <MenuItem selected={location.pathname === "/"}>
-                            <ListItemIcon><GridView/></ListItemIcon>
-                            <Typography variant="body2" color={"black"} >Dashboard</Typography>
+            <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "85vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
+                {role.includes("admin") ?
+                    <MenuList sx={{height: "100%", paddingTop: 2}}>
+                        <Link to={"/"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/"}>
+                                <ListItemIcon><GridView/></ListItemIcon>
+                                <Typography variant="body2" color={"black"} >Dashboard</Typography>
+                            </MenuItem>
+                        </Link>
+                        <MenuItem>
+                            <ListItemIcon><Style/></ListItemIcon>
+                            <Typography variant="body2">Data Pengunjung</Typography>
                         </MenuItem>
-                    </Link>
-                    <MenuItem>
-                        <ListItemIcon><Style/></ListItemIcon>
-                        <Typography variant="body2">Data Skripsi</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon><LocalLibrary/></ListItemIcon>
-                        <Typography variant="body2">Data Mahasiswa</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon><AutoStoriesSharp/></ListItemIcon>
-                        <Typography variant="body2">Data Pengajuan Buku</Typography>
-                    </MenuItem>
-                    <Link to={"/major"} style={{textDecoration: "none"}}>
-                        <MenuItem selected={location.pathname === "/major"}>
-                            <ListItemIcon><SchoolOutlined/></ListItemIcon>
-                            <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
+                        <MenuItem>
+                            <ListItemIcon><LocalLibrary/></ListItemIcon>
+                            <Typography variant="body2">Data Mahasiswa</Typography>
                         </MenuItem>
-                    </Link>
-                    <MenuItem>
-                        <ListItemIcon><SettingsAccessibility/></ListItemIcon>
-                        <Typography variant="body2">Pengaturan Akses User</Typography>
-                    </MenuItem>
-                    <MenuItem>
-                        <ListItemIcon><ManageAccounts/></ListItemIcon>
-                        <Typography variant="body2">Pengaturan Akun</Typography>
-                    </MenuItem>
-                    <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
-                    <MenuItem onClick={handleLogout}>
-                        <ListItemIcon><Logout/></ListItemIcon>
-                        <Typography variant="body2">Logout</Typography>
-                    </MenuItem>
-                    </Box>
-                </MenuList>
+                        <MenuItem>
+                            <ListItemIcon><AutoStoriesSharp/></ListItemIcon>
+                            <Typography variant="body2">Data Pengajuan Jurnal</Typography>
+                        </MenuItem>
+                        <Link to={"/major"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/major"}>
+                                <ListItemIcon><SchoolOutlined/></ListItemIcon>
+                                <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
+                            </MenuItem>
+                        </Link>
+                        <MenuItem>
+                            <ListItemIcon><SettingsAccessibility/></ListItemIcon>
+                            <Typography variant="body2">Pengaturan Akses User</Typography>
+                        </MenuItem>
+                        <MenuItem>
+                            <ListItemIcon><ManageAccounts/></ListItemIcon>
+                            <Typography variant="body2">Pengaturan Akun</Typography>
+                        </MenuItem>
+                        <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
+                            <MenuItem onClick={handleLogout}>
+                                <ListItemIcon><Logout/></ListItemIcon>
+                                <Typography variant="body2">Logout</Typography>
+                            </MenuItem>
+                        </Box>
+                    </MenuList> :
+                    <MenuList sx={{height: "100%", paddingTop: 2}}>
+                        <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
+                            <MenuItem onClick={handleLogout}>
+                                <ListItemIcon><Logout/></ListItemIcon>
+                                <Typography variant="body2">Logout</Typography>
+                            </MenuItem>
+                        </Box>
+                    </MenuList>
+                }
             </Paper> 
         </>
     )

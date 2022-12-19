@@ -11,6 +11,7 @@ import {Link, useNavigate} from "react-router-dom";
 import { logoutHooks } from "../../use-case/auth/logoutHooks";
 import getProfileHooks from "../../use-case/auth/getProfileHooks";
 import {useProfileContext} from "../../providers/use/useProfileContext";
+import Layout from "../layouts/Layout";
 
 
 
@@ -42,162 +43,146 @@ function ProfilePage(){
 
     return (
         <>
-            <NavigationBar/>
-
-            <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid item xs={12} sm={4} lg={2.5} position="relative" sx={{
-                    display: {
-                        xs: 'none',
-                        sm: 'block'
-                    }
+            <Layout>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "auto",
+                    height: "100%",
+                    justifyContent: "center",
                 }}>
-                    <Sidebar/>
-                </Grid>
-                {/* {loading && <Typography>Loading data....</Typography>} */}
-                {/* {user && 
-                    
-                } */}
-                <Grid item xs={12} md={8} lg={9}>
-                        <Box sx={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "auto",
-                            height: "100%",
-                            justifyContent: "center",
-                        }}>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Box marginBottom={5}>
-                                        {loading && 
-                                            <Skeleton
-                                                variant="circular"
-                                                width={80}
-                                                height={80}
-                                                sx={{marginX: "auto"}}
-                                            />
-                                        }
-                                        {state && !loading ?
-                                            <Avatar sx={{
-                                                height: 80,
-                                                width: 80,
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                marginX: "auto"
-                                            }} src={state.profile.picture}/>
-                                            : 
-                                            <></>
-                                        }
-                                    </Box>
+                    <Grid container>
+                        <Grid item xs={12}>
+                            <Box marginBottom={5}>
+                                {loading &&
+                                    <Skeleton
+                                        variant="circular"
+                                        width={80}
+                                        height={80}
+                                        sx={{marginX: "auto"}}
+                                    />
+                                }
+                                {state && !loading ?
+                                    <Avatar sx={{
+                                        height: 80,
+                                        width: 80,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginX: "auto"
+                                    }} src={state.profile.picture}/>
+                                    :
+                                    <></>
+                                }
+                            </Box>
 
-                                    <Box marginBottom={3} sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center"
-                                    }}>
-                                        <Typography marginRight={1}>Nama : </Typography>
-                                        <Typography align="center">
-                                            {loading && 
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={150}
-                                                    height={30}
-                                                    sx={{marginX: "auto"}}
-                                                />
-                                            }
-                                            {state && !loading ?
-                                                state.profile.fullname || "Tidak ada"
-                                                : 
-                                                <></>
-                                            }
-                                        </Typography>
-                                    </Box>
+                            <Box marginBottom={3} sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}>
+                                <Typography marginRight={1}>Nama : </Typography>
+                                <Typography align="center">
+                                    {loading &&
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={150}
+                                            height={30}
+                                            sx={{marginX: "auto"}}
+                                        />
+                                    }
+                                    {state && !loading ?
+                                        state.profile.fullname || "Tidak ada"
+                                        :
+                                        <></>
+                                    }
+                                </Typography>
+                            </Box>
 
-                                    <Box marginBottom={3} sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center"
-                                    }}>
-                                        <Typography marginRight={1}>Email : </Typography>
-                                        <Typography align="center">
-                                            {loading &&
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={150}
-                                                    height={30}
-                                                    sx={{marginX: "auto"}}
-                                                />
-                                            }
-                                            {state && !loading ?
-                                                state.profile.email || "Tidak ada"
-                                                :
-                                                <></>
-                                            }
-                                        </Typography>
-                                    </Box>
+                            <Box marginBottom={3} sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}>
+                                <Typography marginRight={1}>Email : </Typography>
+                                <Typography align="center">
+                                    {loading &&
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={150}
+                                            height={30}
+                                            sx={{marginX: "auto"}}
+                                        />
+                                    }
+                                    {state && !loading ?
+                                        state.profile.email || "Tidak ada"
+                                        :
+                                        <></>
+                                    }
+                                </Typography>
+                            </Box>
 
-                                    <Box marginBottom={3} sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center"
-                                    }}>
-                                        <Typography sx={{marginRight: 1}}>Alamat : </Typography>
+                            <Box marginBottom={3} sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}>
+                                <Typography sx={{marginRight: 1}}>Alamat : </Typography>
 
-                                        <Typography align="center">
-                                            {loading &&
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={150}
-                                                    height={30}
-                                                    sx={{marginX: "auto"}}
-                                                />
-                                            }
-                                            {(state && !loading) ?
-                                                state.profile.address || "None"
-                                                :
-                                                <></>
-                                            }
-                                        </Typography>
-                                    </Box>
+                                <Typography align="center">
+                                    {loading &&
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={150}
+                                            height={30}
+                                            sx={{marginX: "auto"}}
+                                        />
+                                    }
+                                    {(state && !loading) ?
+                                        state.profile.address || "None"
+                                        :
+                                        <></>
+                                    }
+                                </Typography>
+                            </Box>
 
-                                    <Box marginBottom={3} sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center"
-                                    }}>
-                                        <Typography marginRight={1}>Telepon : </Typography>
-                                        <Typography align="center">
-                                            {loading &&
-                                                <Skeleton
-                                                    variant="rectangular"
-                                                    width={150}
-                                                    height={30}
-                                                    sx={{marginX: "auto"}}
-                                                />
-                                            }
-                                            {(state && !loading) ?
-                                                state.profile.phone || "None"
-                                                :
-                                                <></>
-                                            }
-                                        </Typography>
-                                    </Box>
+                            <Box marginBottom={3} sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}>
+                                <Typography marginRight={1}>Telepon : </Typography>
+                                <Typography align="center">
+                                    {loading &&
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={150}
+                                            height={30}
+                                            sx={{marginX: "auto"}}
+                                        />
+                                    }
+                                    {(state && !loading) ?
+                                        state.profile.phone || "None"
+                                        :
+                                        <></>
+                                    }
+                                </Typography>
+                            </Box>
 
-                                    <Box marginBottom={3} sx={{
-                                        display: "flex",
-                                        flexDirection: "row",
-                                        justifyContent: "center"
-                                    }}>
-                                        <Link to={"/edit-profile-admin"} style={{textDecoration: "none"}}>
-                                            <Button variant={"contained"} sx={{
-                                                textTransform: "capitalize"
-                                            }}>Edit Profile</Button>
-                                        </Link>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </Box>
+                            <Box marginBottom={3} sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center"
+                            }}>
+                                <Link to={"/edit-profile-admin"} style={{textDecoration: "none"}}>
+                                    <Button variant={"contained"} sx={{
+                                        textTransform: "capitalize"
+                                    }}>Edit Profile</Button>
+                                </Link>
+                            </Box>
+                        </Grid>
                     </Grid>
-            </Grid>
+                </Box>
+            </Layout>
 
         </>
     )
