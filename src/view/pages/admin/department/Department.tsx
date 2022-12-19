@@ -10,6 +10,8 @@ import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
 import {Delete, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
+import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
+import getDepartmentHook from "../../../../use-case/department/getDepartmentHook";
 
 
 export default function Department(){
@@ -18,6 +20,10 @@ export default function Department(){
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
+
+    const {state} = useDepartmentContext()
+
+    const {getData} = getDepartmentHook()
 
     const columns: GridColDef[] = [
         {
@@ -100,15 +106,8 @@ export default function Department(){
             navigate("/login")
         } else {
             console.log("Token is available to use")
+            getData()
         }
-
-
-        axios.get('http://167.172.64.153:3000/api/fields')
-            .then((response) => {
-                setFields(response.data.data)
-            }).catch((error) => {
-                console.log(error)
-        })
     }, [])
 
     return (
@@ -129,8 +128,8 @@ export default function Department(){
                         }}>Tambah Data</Button>
                     </Link>
                 </Box>
-                {fields ?
-                    <DataGrid columns={columns} rows={fields} sx={{
+                {state.department ?
+                    <DataGrid columns={columns} rows={state.department} sx={{
                         border: 2,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",

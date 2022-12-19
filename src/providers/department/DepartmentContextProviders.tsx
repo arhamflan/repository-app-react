@@ -7,9 +7,9 @@ export const DepartmentContext = createContext<IDepartment |any>(null);
 export const departmentReducer = (state: IDepartment, action: any) => {
 
     switch(action.types){
-        case "GET_DEPARTMENT":
+        case "SET_DEPARTMENT":
             return {
-                ...state,
+                ...state.department,
                 department: action.payload
             }
 
@@ -37,6 +37,14 @@ export const DepartmentContextProvider = ({children}: any) => {
         departmentDetail: {}
     })
 
+    function setDepartment(department: IDepartment){
+        // @ts-ignore
+        dispatch({
+            types: "SET_DEPARTMENT",
+            payload: department
+        })
+    }
+
     function setDepartmentDetail(department: IDepartment){
         // @ts-ignore
         dispatch({
@@ -54,7 +62,7 @@ export const DepartmentContextProvider = ({children}: any) => {
     }
 
     return (
-        <DepartmentContext.Provider value={{state, setDepartmentDetail, editDepartmentDetail}}>
+        <DepartmentContext.Provider value={{state, setDepartment, setDepartmentDetail, editDepartmentDetail}}>
             {children}
         </DepartmentContext.Provider>
     )
