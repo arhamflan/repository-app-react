@@ -16,12 +16,16 @@ import illustrationLogin from "../../../assets/illustration-login.png"
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import backdropHooks from "../../../use-case/component/backdropHooks";
+import checkTokenHooks from "../../../use-case/auth/checkTokenHooks";
+import {decodeToken} from "react-jwt";
 
 function LoginPage(){
 
     const navigate: any = useNavigate()
 
     const {openBackdrop, setOpenBackdrop} = backdropHooks()
+
+    const {role} = checkTokenHooks()
 
     const handleGoogleLogin = async(data: any) => {
 
@@ -35,7 +39,12 @@ function LoginPage(){
                 position: 'bottom-center'
             })
             setTimeout(() => {
-                navigate('/')
+                const token = localStorage.getItem("token")
+                const decodeTokenAuth = decodeToken(token)
+                // @ts-ignore
+                if(decodeTokenAuth.roles.includes("admin")){
+                    navigate("/dashboard-admin")
+                }
             }, 2000)
         } else {
             toast.error('Gagal login', {
@@ -48,7 +57,9 @@ function LoginPage(){
     useEffect(() => {
         if(localStorage.getItem("token") !== null){
             console.log(localStorage.getItem("token"))
-            navigate("/")
+            if(role.includes("admin")){
+                navigate("/dashboard-admin")
+            }
         }
     }, [])
 

@@ -9,7 +9,7 @@ import {
     SettingsAccessibility,
     ManageAccounts,
     Cookie,
-    SchoolOutlined
+    SchoolOutlined, Article
 } from "@mui/icons-material";
 import {useNavigate, Link, useLocation} from "react-router-dom";
 import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
@@ -45,8 +45,8 @@ function Sidebar(){
             <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
                 {(token && role.includes("admin")) ?
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/"}>
+                        <Link to={"/dashboard-admin"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/dashboard-admin"}>
                                 <ListItemIcon><GridView/></ListItemIcon>
                                 <Typography variant="body2" color={"black"} >Dashboard</Typography>
                             </MenuItem>
@@ -55,10 +55,12 @@ function Sidebar(){
                             <ListItemIcon><Style/></ListItemIcon>
                             <Typography variant="body2">Data Pengunjung</Typography>
                         </MenuItem>
-                        <MenuItem>
-                            <ListItemIcon><LocalLibrary/></ListItemIcon>
-                            <Typography variant="body2">Data Mahasiswa</Typography>
-                        </MenuItem>
+                        <Link to={"/paper"} style={{textDecoration: "none"}}>
+                            <MenuItem>
+                                <ListItemIcon><Article/></ListItemIcon>
+                                <Typography variant={"body2"} color={"black"}>Data Paper</Typography>
+                            </MenuItem>
+                        </Link>
                         <MenuItem>
                             <ListItemIcon><AutoStoriesSharp/></ListItemIcon>
                             <Typography variant="body2">Data Pengajuan Jurnal</Typography>

@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {
     Box,
     Button,
-    Dialog, DialogActions, DialogTitle,
+    Dialog, DialogActions, DialogContent, DialogTitle,
     FormControl,
     FormGroup,
     Grid,
@@ -30,6 +30,10 @@ function AddDepartment(){
     })
 
     const [isOpenDialog, setIsOpenDialog] = useState(false)
+    const [dialogContent, setDialogContent] = useState({
+        title: '',
+        description: ''
+    })
 
     const navigate = useNavigate()
 
@@ -42,6 +46,10 @@ function AddDepartment(){
             console.log(data)
             navigate("/major")
         } else {
+            setDialogContent({
+                title: "Kesalahan Input",
+                description: data.response.data.message
+            })
             setIsOpenDialog(true)
             console.log(data.response.data.message)
         }
@@ -95,11 +103,15 @@ function AddDepartment(){
             <Dialog open={isOpenDialog}
                 onClose={() => setIsOpenDialog(false)}
             >
-                <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle>{dialogContent.title}</DialogTitle>
+                <DialogContent>
+                    {dialogContent.description}
+                </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setIsOpenDialog(false)}>Disagree</Button>
-                    <Button onClick={() => setIsOpenDialog(false)} autoFocus>
-                        Agree
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"contained"} onClick={() => setIsOpenDialog(false)} autoFocus>
+                        Tutup
                     </Button>
                 </DialogActions>
             </Dialog>
