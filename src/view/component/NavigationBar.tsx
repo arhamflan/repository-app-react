@@ -75,7 +75,7 @@ function NavigationBar(){
                                 right: 14,
                                 width: 10,
                                 height: 10,
-                                bgcolor: 'background.paper',
+                                bgcolor: 'background.thesis',
                                 transform: 'translateY(-50%) rotate(45deg)',
                                 },
                             },

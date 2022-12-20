@@ -1,5 +1,6 @@
-
+import NavigationBar from "../../../component/NavigationBar";
 import {Box, Grid, IconButton, Typography} from "@mui/material";
+import Sidebar from "../../../component/Sidebar";
 import {DataGrid, GridApi, GridCellValue, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
@@ -7,18 +8,21 @@ import {useEffect, useState} from "react";
 import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
-import {Delete, Edit} from "@mui/icons-material";
+import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import getDepartmentHook from "../../../../use-case/department/getDepartmentHook";
 import deleteDepartmentHooks from "../../../../use-case/department/deleteDepartmentHooks";
+import {endpointThesis} from "../../../../config/api-url";
 
 
-export default function Department(){
+export default function Paper(){
 
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
+
+    const [paperData, setPaperData] = useState([])
 
     const {state} = useDepartmentContext()
 
@@ -34,65 +38,65 @@ export default function Department(){
             headerName: "ID",
         },
         {
-            field: "field",
-            headerName: "Jurusan",
+            field: "thesisAuthor",
+            headerName: "Penulis",
+            width: 200
+        },
+        {
+            field: "thesisTitle",
+            headerName: "Judul",
             width: 500
+        },
+        {
+            field: "status",
+            headerName: "Status",
+            width: 100
         },
         {
             field: 'action',
             headerName: 'Action',
             sortable: false,
-            renderCell: (params) => {
-                const onClick = (e) => {
-                    e.stopPropagation(); // don't select this row after clicking
+            width: 150,
+            renderCell: (params) => {// don't select this row after clicking
 
-                    const api: GridApi = params.api;
-                    const thisRow: Record<string, GridCellValue> = {};
+                const api: GridApi = params.api;
+                const thisRow: Record<string, GridCellValue> = {};
 
-                    api
-                        .getAllColumns()
-                        .filter((c) => c.field !== '__check__' && !!c)
-                        .forEach(
-                            (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                        );
-
-
-                    navigate(`/edit-major/${thisRow.id}`)
-                };
+                api
+                    .getAllColumns()
+                    .filter((c) => c.field !== '__check__' && !!c)
+                    .forEach(
+                        (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
+                    );
 
                 const handleDelete = async(e) => {
                     e.stopPropagation();
 
-                    const api: GridApi = params.api
-                    const thisRow: Record<string, GridCellValue> = {};
-
-                    api
-                        .getAllColumns()
-                        .filter((c) => c.field !== '__check__' && !!c)
-                        .forEach(
-                            (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
-                        );
-
-
-                    // @ts-ignore
-                    const data = await deleteDepartmentHooks(thisRow.id)
-                    if(data === true){
-                        deleteDepartment(thisRow.id)
-                    } else {
-                        console.log("Failed to delete")
-                    }
+                    axios.delete(`http://167.172.64.153:3000/api/delete-thesis/${thisRow.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }).then((response) => {
+                    }).catch((error) => {
+                        console.log(error)
+                    })
                 }
 
                 return <Box sx={{
                     flexDirection: 'row',
                     display: 'flex'
                 }}>
-                    <IconButton onClick={onClick}>
-                        <Edit/>
+                    <IconButton>
+                        <Download/>
                     </IconButton>
                     <IconButton onClick={handleDelete}>
                         <Delete/>
                     </IconButton>
+                    {thisRow.status[0] !== 'accepted' ?
+                        <IconButton>
+                            <Check/>
+                        </IconButton> : <></>
+                    }
                 </Box>;
             },
         },
@@ -106,11 +110,19 @@ export default function Department(){
             logoutHooks()
             navigate("/login")
         } else {
-            console.log("Token is available to use")
-            getData()
+            axios.get(`http://167.172.64.153:3000/api/papers`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
+                setPaperData(response.data.data)
+            }).catch((error) => {
+                console.log(error)
+            })
         }
     }, [])
 
+    // @ts-ignore
     return (
         <>
             <Layout>
@@ -122,15 +134,15 @@ export default function Department(){
                     justifyContent: "space-between",
                     marginTop: 1
                 }}>
-                    <Typography variant={"h6"}>Data Jurusan</Typography>
-                    <Link to={"/add-major"} style={{textDecoration: "none"}}>
+                    <Typography variant={"h6"}>Data Paper</Typography>
+                    <Link to={"/add-paper"} style={{textDecoration: "none"}}>
                         <Button variant={"contained"} sx={{
                             textTransform: "capitalize"
                         }}>Tambah Data</Button>
                     </Link>
                 </Box>
-                {state.department ?
-                    <DataGrid columns={columns} rows={state.department} sx={{
+                {paperData ?
+                    <DataGrid columns={columns} rows={paperData} sx={{
                         border: 2,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",

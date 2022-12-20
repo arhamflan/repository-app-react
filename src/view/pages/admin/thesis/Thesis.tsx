@@ -135,8 +135,8 @@ export default function Thesis(){
                     justifyContent: "space-between",
                     marginTop: 1
                 }}>
-                    <Typography variant={"h6"}>Data Paper</Typography>
-                    <Link to={"/add-paper"} style={{textDecoration: "none"}}>
+                    <Typography variant={"h6"}>Data Skripsi</Typography>
+                    <Link to={"/add-thesis"} style={{textDecoration: "none"}}>
                         <Button variant={"contained"} sx={{
                             textTransform: "capitalize"
                         }}>Tambah Data</Button>

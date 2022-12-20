@@ -38,7 +38,7 @@ export default function AddThesis(){
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            navigate("/paper")
+            navigate("/thesis")
         }).catch((error) => {
             console.log(error)
         })
@@ -66,7 +66,7 @@ export default function AddThesis(){
                 marginTop: 5,
                 marginBottom: 5
             }}>
-                <Typography variant={"h6"}>Input Data Paper</Typography>
+                <Typography variant={"h6"}>Input Data Skripsi</Typography>
             </Box>
             <Box sx={{
                 width: "50%"
@@ -112,7 +112,7 @@ export default function AddThesis(){
                         marginBottom: 2
                     }}>
                         <FormControl>
-                            <FormLabel>File Paper</FormLabel>
+                            <FormLabel>File Skripsi</FormLabel>
                             {/*<Input*/}
                             {/*    type={"file"}*/}
                             {/*    onChange={(e) => {*/}

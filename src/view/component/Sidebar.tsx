@@ -51,14 +51,16 @@ function Sidebar(){
                                 <Typography variant="body2" color={"black"} >Dashboard</Typography>
                             </MenuItem>
                         </Link>
-                        <MenuItem>
-                            <ListItemIcon><Style/></ListItemIcon>
-                            <Typography variant="body2">Data Pengunjung</Typography>
-                        </MenuItem>
                         <Link to={"/paper"} style={{textDecoration: "none"}}>
-                            <MenuItem>
+                            <MenuItem selected={location.pathname === "/paper"}>
+                                <ListItemIcon><Style/></ListItemIcon>
+                                <Typography variant="body2" color={"black"}>Data Paper</Typography>
+                            </MenuItem>
+                        </Link>
+                        <Link to={"/thesis"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/thesis"}>
                                 <ListItemIcon><Article/></ListItemIcon>
-                                <Typography variant={"body2"} color={"black"}>Data Paper</Typography>
+                                <Typography variant={"body2"} color={"black"}>Data Skripsi</Typography>
                             </MenuItem>
                         </Link>
                         <Link to={"/major"} style={{textDecoration: "none"}}>

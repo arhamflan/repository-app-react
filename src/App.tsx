@@ -7,8 +7,10 @@ import EditProfile from "./view/pages/auth/admin/EditProfile";
 import Department from "./view/pages/admin/department/Department";
 import AddDepartment from "./view/pages/admin/department/AddDepartment";
 import EditDepartment from "./view/pages/admin/department/EditDepartment";
-import Thesis from "./view/pages/admin/paper/Thesis";
-import AddThesis from "./view/pages/admin/paper/AddThesis";
+import Thesis from "./view/pages/admin/thesis/Thesis";
+import AddThesis from "./view/pages/admin/thesis/AddThesis";
+import Paper from "./view/pages/admin/paper/Paper";
+import AddPaper from "./view/pages/admin/paper/AddPaper";
 
 
 
@@ -32,8 +34,11 @@ function App() {
             <Route path="/add-major" element={<AddDepartment/>}/>
             <Route path="/edit-major/:id" element={<EditDepartment/>}/>
 
-            <Route path="/paper" element={<Thesis/>}/>
-            <Route path="/add-paper" element={<AddThesis/>}/>
+            <Route path="/thesis" element={<Thesis/>}/>
+            <Route path="/add-thesis" element={<AddThesis/>}/>
+
+            <Route path="/paper" element={<Paper/>}/>
+            <Route path="/add-paper" element={<AddPaper/>}/>
           </Routes>
         </BrowserRouter>
       </div>
