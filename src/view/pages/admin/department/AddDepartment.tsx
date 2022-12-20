@@ -2,7 +2,18 @@ import {useEffect, useState} from "react";
 import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, FormControl, FormGroup, Grid, Input, InputLabel, TextField, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Dialog, DialogActions, DialogTitle,
+    FormControl,
+    FormGroup,
+    Grid,
+    Input,
+    InputLabel,
+    TextField,
+    Typography
+} from "@mui/material";
 import ButtonSubmit from "../../../component/ButtonSubmit";
 import NavigationBar from "../../../component/NavigationBar";
 import Sidebar from "../../../component/Sidebar";
@@ -11,11 +22,14 @@ import Layout from "../../../layouts/Layout";
 import addDepartmentHooks from "../../../../use-case/department/addDepartmentHooks";
 
 
+
 function AddDepartment(){
 
     const [major, setMajor] = useState({
         field: ""
     })
+
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
 
     const navigate = useNavigate()
 
@@ -25,9 +39,11 @@ function AddDepartment(){
 
         const data = await addDepartmentHooks(major)
         if(data === true){
+            console.log(data)
             navigate("/major")
         } else {
-            console.log(data)
+            setIsOpenDialog(true)
+            console.log(data.response.data.message)
         }
     }
 
@@ -61,7 +77,7 @@ function AddDepartment(){
                     <form onSubmit={handleSubmit}>
                         <FormGroup>
                             <FormControl>
-                                <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
+                                <TextField label={"Jurusan"} variant={"outlined"} size={"small"}
                                            onChange={(e) => {
                                                setMajor({...major, field: e.target.value})
                                            }}
@@ -76,7 +92,17 @@ function AddDepartment(){
                 </Box>
             </Layout>
 
-
+            <Dialog open={isOpenDialog}
+                onClose={() => setIsOpenDialog(false)}
+            >
+                <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => setIsOpenDialog(false)}>Disagree</Button>
+                    <Button onClick={() => setIsOpenDialog(false)} autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
         </>
     )

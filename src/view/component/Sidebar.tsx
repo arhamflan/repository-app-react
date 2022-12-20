@@ -19,7 +19,7 @@ import {logoutHooks} from "../../use-case/auth/logoutHooks";
 
 function Sidebar(){
 
-    const {role} = checkTokenHooks()
+    const {role, token} = checkTokenHooks()
 
     const navigate = useNavigate()
 
@@ -43,7 +43,7 @@ function Sidebar(){
     return (
         <>
             <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
-                {role.includes("admin") ?
+                {(token && role.includes("admin")) ?
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
                         <Link to={"/"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/"}>
