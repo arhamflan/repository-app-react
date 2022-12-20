@@ -20,7 +20,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/dashboard-admin" element={<DashboardPage/>} />
-            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/" element={<LoginPage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
 
             {/*admin*/}
