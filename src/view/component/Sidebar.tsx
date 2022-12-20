@@ -61,10 +61,6 @@ function Sidebar(){
                                 <Typography variant={"body2"} color={"black"}>Data Paper</Typography>
                             </MenuItem>
                         </Link>
-                        <MenuItem>
-                            <ListItemIcon><AutoStoriesSharp/></ListItemIcon>
-                            <Typography variant="body2">Data Pengajuan Jurnal</Typography>
-                        </MenuItem>
                         <Link to={"/major"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/major"}>
                                 <ListItemIcon><SchoolOutlined/></ListItemIcon>
