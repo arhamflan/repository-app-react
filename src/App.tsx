@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import AppContextProvider from "./providers/AppContextProviders"
 import LoginPage from "./view/pages/auth/LoginPage"
-import DashboardPage from "./view/pages/admin/DashboardPage"
+import DashboardPageAdmin from "./view/pages/admin/DashboardPageAdmin"
 import ProfilePage from "./view/pages/ProfilePage"
 import EditProfile from "./view/pages/auth/admin/EditProfile";
 import Department from "./view/pages/admin/department/Department";
@@ -11,6 +11,7 @@ import Thesis from "./view/pages/admin/thesis/Thesis";
 import AddThesis from "./view/pages/admin/thesis/AddThesis";
 import Paper from "./view/pages/admin/paper/Paper";
 import AddPaper from "./view/pages/admin/paper/AddPaper";
+import DashboardPageStudent from "./view/pages/students/DashboardPageStudent";
 
 
 
@@ -21,7 +22,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/dashboard-admin" element={<DashboardPage/>} />
+            <Route path="/dashboard-admin" element={<DashboardPageAdmin/>} />
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
 
@@ -39,6 +40,9 @@ function App() {
 
             <Route path="/paper" element={<Paper/>}/>
             <Route path="/add-paper" element={<AddPaper/>}/>
+
+            {/*student*/}
+            <Route path="/dashboard-student" element={<DashboardPageStudent/>}/>
           </Routes>
         </BrowserRouter>
       </div>

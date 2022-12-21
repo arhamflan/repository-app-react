@@ -1,5 +1,5 @@
 
-import {Box, Grid, IconButton, Typography} from "@mui/material";
+import {Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Typography} from "@mui/material";
 import {DataGrid, GridApi, GridCellValue, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
@@ -15,6 +15,13 @@ import deleteDepartmentHooks from "../../../../use-case/department/deleteDepartm
 
 
 export default function Department(){
+
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
+    const [dialogContent, setDialogContent] = useState({
+        title: null,
+        description: null,
+        deleteId: null
+    })
 
     const navigate = useNavigate()
 
@@ -75,12 +82,22 @@ export default function Department(){
 
 
                     // @ts-ignore
-                    const data = await deleteDepartmentHooks(thisRow.id)
-                    if(data === true){
-                        deleteDepartment(thisRow.id)
-                    } else {
-                        console.log("Failed to delete")
-                    }
+                    // const data = await deleteDepartmentHooks(thisRow.id)
+                    // if(data === true){
+                    //     deleteDepartment(thisRow.id)
+                    // } else {
+                    //     console.log("Failed to delete")
+                    // }
+
+                    setDialogContent({
+                        title: 'Hapus Data',
+                        description: `Apakah kamu akan menghapus data dengan id ${thisRow.id}`,
+                        deleteId: thisRow.id
+                    })
+
+                    setIsOpenDialog(true)
+
+
                 }
 
                 return <Box sx={{
@@ -98,6 +115,16 @@ export default function Department(){
         },
     ]
 
+
+    const deleteDepartmentData = async() => {
+        const data = await deleteDepartmentHooks(dialogContent.deleteId)
+        if(data === true){
+            deleteDepartment(dialogContent.deleteId)
+            setIsOpenDialog(false)
+        } else {
+            console.log("Failed to delete")
+        }
+    }
 
     useEffect(() => {
         const {expiredToken} = checkTokenHooks()
@@ -148,6 +175,23 @@ export default function Department(){
                     }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
                 }
             </Layout>
+
+            <Dialog open={isOpenDialog} onClose={() => setIsOpenDialog(false)}>
+                <DialogTitle>{dialogContent.title}</DialogTitle>
+                <DialogContent><Typography>{dialogContent.description}</Typography></DialogContent>
+                <DialogActions>
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"outlined"} onClick={() => setIsOpenDialog(false)}>
+                        Batalkan
+                    </Button>
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"contained"} color={"error"} onClick={() => deleteDepartmentData()} autoFocus>
+                        Hapus
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 

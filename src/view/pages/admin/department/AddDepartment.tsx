@@ -85,7 +85,7 @@ function AddDepartment(){
                     <form onSubmit={handleSubmit}>
                         <FormGroup>
                             <FormControl>
-                                <TextField label={"Jurusan"} variant={"outlined"} size={"small"}
+                                <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
                                            onChange={(e) => {
                                                setMajor({...major, field: e.target.value})
                                            }}

@@ -9,7 +9,7 @@ import styles from "../../../styled/GlassEffectWhite.module.css"
 import NavigationBar from "../../component/NavigationBar";
 import Sidebar from "../../component/Sidebar";
 
-import { isExpired } from "react-jwt";
+import {decodeToken, isExpired} from "react-jwt";
 import { logoutHooks } from "../../../use-case/auth/logoutHooks";
 import { useNavigate } from "react-router-dom";
 import checkTokenHooks from "../../../use-case/auth/checkTokenHooks";
@@ -18,7 +18,7 @@ import Layout from "../../layouts/Layout";
 
 
 
-function DashboardPage(){
+function DashboardPageStudent(){
 
     const navigate = useNavigate()
 
@@ -30,7 +30,12 @@ function DashboardPage(){
             logoutHooks()
             navigate("/login")
         } else {
-            console.log("Token is available to use")
+            const token = localStorage.getItem("token")
+            const decodeTokenAuth = decodeToken(token)
+            // @ts-ignore
+            if(decodeTokenAuth.roles.includes("admin") || decodeTokenAuth.roles.includes("civitas")){
+                navigate(-1)
+            }
         }
     })
 
@@ -43,4 +48,4 @@ function DashboardPage(){
     )
 }
 
-export default DashboardPage;
+export default DashboardPageStudent;

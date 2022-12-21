@@ -44,6 +44,8 @@ function LoginPage(){
                 // @ts-ignore
                 if(decodeTokenAuth.roles.includes("admin")){
                     navigate("/dashboard-admin")
+                } else {
+                    navigate("/dashboard-student")
                 }
             }, 2000)
         } else {
@@ -57,8 +59,10 @@ function LoginPage(){
     useEffect(() => {
         if(localStorage.getItem("token") !== null){
             console.log(localStorage.getItem("token"))
-            if(role.includes("admin")){
+            if(role.includes("admin") && !role.includes("civitas")){
                 navigate("/dashboard-admin")
+            } else {
+                navigate("/dashboard-student")
             }
         }
     }, [])
