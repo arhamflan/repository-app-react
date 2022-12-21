@@ -12,13 +12,13 @@ import FileUpload from "react-material-file-upload";
 
 export default function AddPaper(){
 
-    const [thesisData, setThesisData] = useState({
-        thesisTitle: '',
+    const [paperData, setPaperData] = useState({
+        paperTitle: '',
         studentId: '',
-        thesisAuthor: ''
+        paperAuthor: ''
     })
 
-    const [fileThesis, setFileThesis] = useState([])
+    const [filePaper, setFilePaper] = useState([])
 
     const navigate = useNavigate()
 
@@ -28,17 +28,17 @@ export default function AddPaper(){
         e.preventDefault()
 
         const formData = new FormData();
-        formData.append('thesisTitle', thesisData.thesisTitle)
-        formData.append('studentId', thesisData.studentId)
-        formData.append('thesisAuthor', thesisData.thesisAuthor)
-        formData.append('thesis', fileThesis[0], fileThesis[0].name)
+        formData.append('paperTitle', paperData.paperTitle)
+        formData.append('studentId', paperData.studentId)
+        formData.append('paperAuthor', paperData.paperAuthor)
+        formData.append('paper', filePaper[0], filePaper[0].name)
 
-        axios.post(`http://167.172.64.153:3000/api/admin-upload-thesis`, formData, {
+        axios.post(`http://167.172.64.153:3000/api/admin-upload-paper`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            navigate("/thesis")
+            navigate("/paper")
         }).catch((error) => {
             console.log(error)
         })
@@ -78,7 +78,7 @@ export default function AddPaper(){
                         <FormControl>
                             <TextField label={"Judul"} variant={"outlined"} size={"small"}
                                        onChange={(e) => {
-                                           setThesisData({...thesisData, thesisTitle: e.target.value})
+                                           setPaperData({...paperData, paperTitle: e.target.value})
                                        }}
                             />
                         </FormControl>
@@ -91,7 +91,7 @@ export default function AddPaper(){
                         <FormControl>
                             <TextField label={"ID Mahasiswa"} variant={"outlined"} size={"small"}
                                        onChange={(e) => {
-                                           setThesisData({...thesisData, studentId: e.target.value})
+                                           setPaperData({...paperData, studentId: e.target.value})
                                        }}
                             />
                         </FormControl>
@@ -103,7 +103,7 @@ export default function AddPaper(){
                         <FormControl>
                             <TextField label={"Nama Author"} variant={"outlined"} size={"small"}
                                        onChange={(e) => {
-                                           setThesisData({...thesisData, thesisAuthor: e.target.value})
+                                           setPaperData({...paperData, paperAuthor: e.target.value})
                                        }}
                             />
                         </FormControl>
@@ -112,7 +112,7 @@ export default function AddPaper(){
                         marginBottom: 2
                     }}>
                         <FormControl>
-                            <FormLabel>File Skripsi</FormLabel>
+                            <FormLabel>File Paper</FormLabel>
                             {/*<Input*/}
                             {/*    type={"file"}*/}
                             {/*    onChange={(e) => {*/}
@@ -121,9 +121,9 @@ export default function AddPaper(){
                             {/*    }}*/}
                             {/*/>*/}
 
-                            <FileUpload value={fileThesis}
+                            <FileUpload value={filePaper}
                                 // @ts-ignore
-                                        onChange={setFileThesis}/>
+                                        onChange={setFilePaper}/>
                         </FormControl>
                     </FormGroup>
                     <FormControl fullWidth>

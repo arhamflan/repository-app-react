@@ -38,12 +38,12 @@ export default function Paper(){
             headerName: "ID",
         },
         {
-            field: "thesisAuthor",
+            field: "paperNameFile",
             headerName: "Penulis",
             width: 200
         },
         {
-            field: "thesisTitle",
+            field: "paperTitle",
             headerName: "Judul",
             width: 500
         },
@@ -72,11 +72,12 @@ export default function Paper(){
                 const handleDelete = async(e) => {
                     e.stopPropagation();
 
-                    axios.delete(`http://167.172.64.153:3000/api/delete-thesis/${thisRow.id}`, {
+                    axios.delete(`http://167.172.64.153:3000/api/delete-paper/${thisRow.id}`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
                     }).then((response) => {
+                        setPaperData(paperData.filter(((data, index) => data.id !== thisRow.id)))
                     }).catch((error) => {
                         console.log(error)
                     })
