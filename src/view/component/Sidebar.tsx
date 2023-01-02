@@ -30,14 +30,14 @@ function Sidebar(){
     }
 
     useEffect(() => {
-        const {expiredToken} = checkTokenHooks()
-
-        if(expiredToken === true){
-            logoutHooks()
-            navigate("/login")
-        } else {
-            console.log("token is available to use")
-        }
+        // const {expiredToken} = checkTokenHooks()
+        //
+        // if(expiredToken === true){
+        //     logoutHooks()
+        //     navigate("/login")
+        // } else {
+        //     console.log("token is available to use")
+        // }
     })
 
     return (
@@ -69,14 +69,12 @@ function Sidebar(){
                                 <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
                             </MenuItem>
                         </Link>
-                        <MenuItem>
-                            <ListItemIcon><SettingsAccessibility/></ListItemIcon>
-                            <Typography variant="body2">Pengaturan Akses User</Typography>
-                        </MenuItem>
-                        <MenuItem>
-                            <ListItemIcon><ManageAccounts/></ListItemIcon>
-                            <Typography variant="body2">Pengaturan Akun</Typography>
-                        </MenuItem>
+                        <Link to={"/users-access"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/users-access"}>
+                                <ListItemIcon><ManageAccounts/></ListItemIcon>
+                                <Typography variant="body2" color={"black"}>Pengaturan Akun</Typography>
+                            </MenuItem>
+                        </Link>
                         <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
                             <MenuItem onClick={handleLogout}>
                                 <ListItemIcon><Logout/></ListItemIcon>
@@ -85,6 +83,20 @@ function Sidebar(){
                         </Box>
                     </MenuList> :
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
+                        <Link to={"/dashboard-student"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/dashboard-student"}>
+                                <ListItemIcon><GridView/></ListItemIcon>
+                                <Typography variant="body2" color={"black"} >Dashboard</Typography>
+                            </MenuItem>
+                        </Link>
+                        <MenuItem >
+                            <ListItemIcon><Style/></ListItemIcon>
+                            <Typography variant="body2" color={"black"}>Upload Paper</Typography>
+                        </MenuItem>
+                        <MenuItem>
+                            <ListItemIcon><Article/></ListItemIcon>
+                            <Typography variant={"body2"} color={"black"}>Upload Skripsi</Typography>
+                        </MenuItem>
                         <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
                             <MenuItem onClick={handleLogout}>
                                 <ListItemIcon><Logout/></ListItemIcon>

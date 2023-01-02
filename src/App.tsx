@@ -12,6 +12,7 @@ import AddThesis from "./view/pages/admin/thesis/AddThesis";
 import Paper from "./view/pages/admin/paper/Paper";
 import AddPaper from "./view/pages/admin/paper/AddPaper";
 import DashboardPageStudent from "./view/pages/students/DashboardPageStudent";
+import Users from "./view/pages/admin/users/Users";
 
 
 
@@ -40,6 +41,8 @@ function App() {
 
             <Route path="/paper" element={<Paper/>}/>
             <Route path="/add-paper" element={<AddPaper/>}/>
+
+            <Route path="/users-access" element={<Users/>}/>
 
             {/*student*/}
             <Route path="/dashboard-student" element={<DashboardPageStudent/>}/>

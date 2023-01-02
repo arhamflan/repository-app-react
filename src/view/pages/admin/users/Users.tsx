@@ -13,13 +13,13 @@ import Layout from "../../../layouts/Layout";
 import {endpointThesis} from "../../../../config/api-url";
 
 
-export default function Thesis(){
+export default function Users(){
 
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
 
-    const [thesisData, setThesisData] = useState([])
+    const [usersData, setUsersData] = useState([])
     const [isOpenDialog, setIsOpenDialog] = useState(false)
     const [dialogContent, setDialogContent] = useState({
         title: null,
@@ -34,18 +34,18 @@ export default function Thesis(){
             headerName: "ID",
         },
         {
-            field: "thesisAuthor",
-            headerName: "Penulis",
+            field: "fullname",
+            headerName: "Nama",
             width: 200
         },
         {
-            field: "thesisTitle",
-            headerName: "Judul",
+            field: "email",
+            headerName: "email",
             width: 500
         },
         {
-            field: "status",
-            headerName: "Status",
+            field: "roles",
+            headerName: "Role",
             width: 100
         },
         {
@@ -81,16 +81,8 @@ export default function Thesis(){
                     display: 'flex'
                 }}>
                     <IconButton>
-                        <Download/>
+                        <Edit/>
                     </IconButton>
-                    <IconButton onClick={isDeleteContent}>
-                        <Delete/>
-                    </IconButton>
-                    {thisRow.status[0] !== 'accepted' ?
-                        <IconButton>
-                            <Check/>
-                        </IconButton> : <></>
-                    }
                 </Box>;
             },
         },
@@ -104,8 +96,6 @@ export default function Thesis(){
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            setThesisData(thesisData.filter((data, index) => data.id !== dialogContent.deletedId))
-            setIsOpenDialog(false)
         }).catch((error) => {
             console.log(error)
         })
@@ -119,12 +109,12 @@ export default function Thesis(){
             logoutHooks()
             navigate("/login")
         } else {
-            axios.get(`${endpointThesis}`, {
+            axios.get(`http://167.172.64.153:3000/api/users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((response) => {
-                setThesisData(response.data.data)
+                setUsersData(response.data.data)
             }).catch((error) => {
                 console.log(error)
             })
@@ -143,15 +133,10 @@ export default function Thesis(){
                     justifyContent: "space-between",
                     marginTop: 1
                 }}>
-                    <Typography variant={"h6"}>Data Skripsi</Typography>
-                    <Link to={"/add-thesis"} style={{textDecoration: "none"}}>
-                        <Button variant={"contained"} sx={{
-                            textTransform: "capitalize"
-                        }}>Tambah Data</Button>
-                    </Link>
+                    <Typography variant={"h6"}>Data User</Typography>
                 </Box>
-                {thesisData ?
-                    <DataGrid columns={columns} rows={thesisData} sx={{
+                {usersData ?
+                    <DataGrid columns={columns} rows={usersData} sx={{
                         border: 2,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",

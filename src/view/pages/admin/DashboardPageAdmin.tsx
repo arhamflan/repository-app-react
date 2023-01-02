@@ -24,19 +24,19 @@ function DashboardPageAdmin(){
 
     useEffect(() => {
 
-        const {expiredToken} = checkTokenHooks()
-
-        if(expiredToken === true){
-            logoutHooks()
-            navigate("/login")
-        } else {
-            const token = localStorage.getItem("token")
-            const decodeTokenAuth = decodeToken(token)
-            // @ts-ignore
-            if(decodeTokenAuth.roles.includes("civitas") || decodeTokenAuth.roles.includes("student")){
-                navigate(-1)
-            }
-        }
+        // const {expiredToken} = checkTokenHooks()
+        //
+        // if(expiredToken === true){
+        //     logoutHooks()
+        //     navigate("/login")
+        // } else {
+        //     const token = localStorage.getItem("token")
+        //     const decodeTokenAuth = decodeToken(token)
+        //     // @ts-ignore
+        //     if(decodeTokenAuth.roles.includes("civitas") || decodeTokenAuth.roles.includes("student")){
+        //         navigate(-1)
+        //     }
+        // }
     })
 
     return (
