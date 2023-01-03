@@ -41,9 +41,7 @@ function DashboardPageAdmin(){
 
     return (
         <>
-            <Layout>
-
-            </Layout>
+            <Typography>Testing</Typography>
         </>
     )
 }

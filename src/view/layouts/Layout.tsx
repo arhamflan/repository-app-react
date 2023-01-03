@@ -1,6 +1,7 @@
 import NavigationBar from "../component/NavigationBar";
 import {Box, Grid, Typography} from "@mui/material";
 import Sidebar from "../component/Sidebar";
+import {Outlet} from "react-router-dom";
 
 
 export default function Layout(props: any){
@@ -28,7 +29,7 @@ export default function Layout(props: any){
                     <Grid item xs={12} md={8} lg={9} sx={{
                         zIndex: 10
                     }}>
-                        {props.children}
+                        <Outlet/>
                     </Grid>
                 </Grid>
             </Box>

@@ -43,9 +43,9 @@ function LoginPage(){
                 const decodeTokenAuth = decodeToken(token)
                 // @ts-ignore
                 if(decodeTokenAuth.roles.includes("admin")){
-                    navigate("/dashboard-admin")
+                    navigate("/dashboard/dashboard-admin")
                 } else {
-                    navigate("/dashboard-student")
+                    navigate("/dashboard/dashboard-student")
                 }
             }, 2000)
         } else {

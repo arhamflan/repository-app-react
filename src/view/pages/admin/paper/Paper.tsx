@@ -126,41 +126,39 @@ export default function Paper(){
     // @ts-ignore
     return (
         <>
-            <Layout>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "auto",
-                    height: "auto",
-                    justifyContent: "space-between",
-                    marginTop: 1
-                }}>
-                    <Typography variant={"h6"}>Data Paper</Typography>
-                    <Link to={"/add-paper"} style={{textDecoration: "none"}}>
-                        <Button variant={"contained"} sx={{
-                            textTransform: "capitalize"
-                        }}>Tambah Data</Button>
-                    </Link>
-                </Box>
-                {paperData ?
-                    <DataGrid columns={columns} rows={paperData} sx={{
-                        border: 2,
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "auto",
+                justifyContent: "space-between",
+                marginTop: 1
+            }}>
+                <Typography variant={"h6"}>Data Paper</Typography>
+                <Link to={"/add-paper"} style={{textDecoration: "none"}}>
+                    <Button variant={"contained"} sx={{
+                        textTransform: "capitalize"
+                    }}>Tambah Data</Button>
+                </Link>
+            </Box>
+            {paperData ?
+                <DataGrid columns={columns} rows={paperData} sx={{
+                    border: 2,
+                    borderColor: "rgba(184, 184, 184, 0.21)",
+                    borderStyle: "dashed",
+                    background: "white",
+                    '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                        border: 1,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",
-                        background: "white",
-                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                            border: 1,
-                            borderColor: "rgba(184, 184, 184, 0.21)",
-                            borderStyle: "dashed",
-                        },
-                        height: {
-                            lg: 420,
-                            xl: 600
-                        },
-                        marginTop: 2,
-                    }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
-                }
-            </Layout>
+                    },
+                    height: {
+                        lg: 420,
+                        xl: 600
+                    },
+                    marginTop: 2,
+                }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
+            }
         </>
     )
 

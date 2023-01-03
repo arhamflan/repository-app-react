@@ -45,13 +45,13 @@ function Sidebar(){
             <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
                 {(token && role.includes("admin")) ?
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/dashboard-admin"} style={{textDecoration: "none"}}>
+                        <Link to={"/dashboard/dashboard-admin"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/dashboard-admin"}>
                                 <ListItemIcon><GridView/></ListItemIcon>
                                 <Typography variant="body2" color={"black"} >Dashboard</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to={"/paper"} style={{textDecoration: "none"}}>
+                        <Link to={"/dashboard/paper"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/paper"}>
                                 <ListItemIcon><Style/></ListItemIcon>
                                 <Typography variant="body2" color={"black"}>Data Paper</Typography>
