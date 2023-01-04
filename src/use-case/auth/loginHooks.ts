@@ -2,6 +2,7 @@ import axios from "axios";
 import {endpointParent} from "../../config/api-url";
 
 export function loginHooks(data: any): any{
+    console.log(data)
     const login = axios.post(`${endpointParent}/api/authorize`, {
         credential: data.credential
         }).then(response => {
