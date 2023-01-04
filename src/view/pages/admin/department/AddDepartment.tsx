@@ -44,7 +44,7 @@ function AddDepartment(){
         const data = await addDepartmentHooks(major)
         if(data === true){
             console.log(data)
-            navigate("/major")
+            navigate("/dashboard-admin/major")
         } else {
             setDialogContent({
                 title: "Kesalahan Input",
@@ -67,38 +67,36 @@ function AddDepartment(){
 
     return (
         <>
-            <Layout>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "auto",
-                    height: "auto",
-                    justifyContent: "space-between",
-                    marginTop: 5,
-                    marginBottom: 5
-                }}>
-                    <Typography variant={"h6"}>Input Data Jurusan</Typography>
-                </Box>
-                <Box sx={{
-                    width: "50%"
-                }}>
-                    <form onSubmit={handleSubmit}>
-                        <FormGroup>
-                            <FormControl>
-                                <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
-                                           onChange={(e) => {
-                                               setMajor({...major, field: e.target.value})
-                                           }}
-                                />
-                            </FormControl>
-                        </FormGroup>
-                        <FormControl fullWidth>
-                            <ButtonSubmit name={"Submit"}/>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "auto",
+                justifyContent: "space-between",
+                marginTop: 5,
+                marginBottom: 5
+            }}>
+                <Typography variant={"h6"}>Input Data Jurusan</Typography>
+            </Box>
+            <Box sx={{
+                width: "50%"
+            }}>
+                <form onSubmit={handleSubmit}>
+                    <FormGroup>
+                        <FormControl>
+                            <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
+                                       onChange={(e) => {
+                                           setMajor({...major, field: e.target.value})
+                                       }}
+                            />
                         </FormControl>
-                    </form>
+                    </FormGroup>
+                    <FormControl fullWidth>
+                        <ButtonSubmit name={"Submit"}/>
+                    </FormControl>
+                </form>
 
-                </Box>
-            </Layout>
+            </Box>
 
             <Dialog open={isOpenDialog}
                 onClose={() => setIsOpenDialog(false)}

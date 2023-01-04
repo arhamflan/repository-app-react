@@ -5,6 +5,12 @@ import LoginPage from "../view/pages/auth/LoginPage";
 import DashboardPageAdmin from "../view/pages/admin/DashboardPageAdmin";
 import Paper from "../view/pages/admin/paper/Paper";
 import Thesis from "../view/pages/admin/thesis/Thesis";
+import AddPaper from "../view/pages/admin/paper/AddPaper";
+import Department from "../view/pages/admin/department/Department";
+import AddDepartment from "../view/pages/admin/department/AddDepartment";
+import EditDepartment from "../view/pages/admin/department/EditDepartment";
+import DashboardPageStudent from "../view/pages/students/DashboardPageStudent";
+import AddThesis from "../view/pages/admin/thesis/AddThesis";
 
 export default function Routers(){
     const routes = useRoutes([
@@ -20,7 +26,19 @@ export default function Routers(){
                 {element: <Navigate to={"index"}/>},
                 {path: "index", element: <DashboardPageAdmin/>},
                 {path: "paper", element: <Paper/>},
-                {path: "thesis", element: <Thesis/>}
+                {path: "add-paper", element: <AddPaper/>},
+                {path: "thesis", element: <Thesis/>},
+                {path: "add-thesis", element: <AddThesis/>},
+                {path: "major", element: <Department/>},
+                {path: "add-major", element: <AddDepartment/>},
+                {path: "edit-major/:id", element: <EditDepartment/>}
+            ]
+        },
+        {
+            path: "/dashboard-student",
+            element: <Layout/>,
+            children: [
+                {path: "index", element: <DashboardPageStudent/>}
             ]
         }
     ])

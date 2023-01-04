@@ -38,7 +38,7 @@ export default function AddPaper(){
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            navigate("/paper")
+            navigate("/dashboard-admin/paper")
         }).catch((error) => {
             console.log(error)
         })
@@ -56,7 +56,7 @@ export default function AddPaper(){
 
     // @ts-ignore
     return (
-        <Layout>
+        <>
             <Box sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -130,8 +130,7 @@ export default function AddPaper(){
                         <ButtonSubmit name={"Submit"}/>
                     </FormControl>
                 </form>
-
             </Box>
-        </Layout>
+        </>
     )
 }

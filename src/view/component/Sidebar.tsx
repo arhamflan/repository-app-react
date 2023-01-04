@@ -63,7 +63,7 @@ function Sidebar(){
                                 <Typography variant={"body2"} color={"black"}>Data Skripsi</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to={"/major"} style={{textDecoration: "none"}}>
+                        <Link to={"/dashboard-admin/major"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/major"}>
                                 <ListItemIcon><SchoolOutlined/></ListItemIcon>
                                 <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
@@ -83,8 +83,8 @@ function Sidebar(){
                         </Box>
                     </MenuList> :
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/dashboard-student"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/dashboard-student"}>
+                        <Link to={"/dashboard-student/index"} style={{textDecoration: "none"}}>
+                            <MenuItem selected={location.pathname === "/dashboard-student/index"}>
                                 <ListItemIcon><GridView/></ListItemIcon>
                                 <Typography variant="body2" color={"black"} >Dashboard</Typography>
                             </MenuItem>

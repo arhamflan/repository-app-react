@@ -43,9 +43,9 @@ function LoginPage(){
                 const decodeTokenAuth = decodeToken(token)
                 // @ts-ignore
                 if(decodeTokenAuth.roles.includes("admin")){
-                    navigate("/dashboard/dashboard-admin")
+                    navigate("/dashboard-admin/index")
                 } else {
-                    navigate("/dashboard/dashboard-student")
+                    navigate("/dashboard-student/index")
                 }
             }, 2000)
         } else {
@@ -60,9 +60,9 @@ function LoginPage(){
         if(localStorage.getItem("token") !== null){
             console.log(localStorage.getItem("token"))
             if(role.includes("admin") && !role.includes("civitas")){
-                navigate("/dashboard-admin")
+                navigate("/dashboard-admin/index")
             } else {
-                navigate("/dashboard-student")
+                navigate("/dashboard-student/index")
             }
         }
     }, [])

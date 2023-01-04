@@ -41,9 +41,7 @@ function DashboardPageStudent(){
 
     return (
         <>
-            <Layout>
 
-            </Layout>
         </>
     )
 }

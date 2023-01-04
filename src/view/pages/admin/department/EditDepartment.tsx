@@ -12,7 +12,7 @@ import {useDepartmentContext} from "../../../../providers/use/useDepartmentConte
 import editDepartmentHooks from "../../../../use-case/department/editDepartmentHooks";
 
 
-function AddDepartment(){
+function EditDepartment(){
 
     const {id} = useParams()
     const {state, setDepartmentDetail, editDepartmentDetail} = useDepartmentContext()
@@ -31,7 +31,7 @@ function AddDepartment(){
             field: state.departmentDetail.field
         })
         if(data === true){
-            navigate("/major")
+            navigate("/dashboard-admin/major")
         } else {
             console.log(data)
         }
@@ -59,60 +59,42 @@ function AddDepartment(){
 
     return (
         <>
-            <NavigationBar/>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "auto",
+                justifyContent: "space-between",
+                marginTop: 5,
+                marginBottom: 5
+            }}>
+                <Typography variant={"h6"}>Edit Data Jurusan</Typography>
+            </Box>
+            <Box sx={{
+                width: "50%"
+            }}>
+                {state.departmentDetail ?
+                    <form onSubmit={handleSubmit}>
+                        <FormGroup>
+                            <FormControl>
+                                <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
+                                           value={state.departmentDetail.field ? state.departmentDetail.field : ""}
+                                           onChange={(e) => {
+                                               editDepartmentDetail(e.target.value)
+                                           }}
+                                />
+                            </FormControl>
+                        </FormGroup>
+                        <FormControl fullWidth>
+                            <ButtonSubmit name={"Submit"}/>
+                        </FormControl>
+                    </form> : ""
+                }
 
-            <Grid container spacing={2} paddingX={2} marginTop={0.1}>
-                <Grid item xs={12} sm={4} lg={2.5} position={"relative"} sx={{
-                    display: {
-                        xs: "none",
-                        sm: "block"
-                    }
-                }}>
-                    <Sidebar/>
-                </Grid>
-
-                <Grid item xs={12} md={8} lg={9}>
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "auto",
-                        height: "auto",
-                        justifyContent: "space-between",
-                        marginTop: 5,
-                        marginBottom: 5
-                    }}>
-                        <Typography variant={"h6"}>Edit Data Jurusan</Typography>
-                    </Box>
-                    <Box sx={{
-                        width: "50%"
-                    }}>
-                        {state.departmentDetail ?
-                            <form onSubmit={handleSubmit}>
-                                <FormGroup>
-                                    <FormControl>
-                                        <TextField label={"Jurusan"} variant={"outlined"} required={true} size={"small"}
-                                                   value={state.departmentDetail.field ? state.departmentDetail.field : ""}
-                                                   onChange={(e) => {
-                                                       editDepartmentDetail(e.target.value)
-                                                   }}
-                                        />
-                                    </FormControl>
-                                </FormGroup>
-                                <FormControl fullWidth>
-                                    <ButtonSubmit name={"Submit"}/>
-                                </FormControl>
-                            </form> : ""
-                        }
-
-                    </Box>
-                </Grid>
-            </Grid>
-
-
-
+            </Box>
         </>
     )
 
 }
 
-export default AddDepartment;
+export default EditDepartment;

@@ -38,7 +38,7 @@ export default function AddThesis(){
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            navigate("/thesis")
+            navigate("/dashboard-admin/thesis")
         }).catch((error) => {
             console.log(error)
         })
@@ -56,7 +56,7 @@ export default function AddThesis(){
 
     // @ts-ignore
     return (
-        <Layout>
+        <>
             <Box sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -77,9 +77,9 @@ export default function AddThesis(){
                     }}>
                         <FormControl>
                             <TextField label={"Judul"} variant={"outlined"} size={"small"}
-                                onChange={(e) => {
-                                    setThesisData({...thesisData, thesisTitle: e.target.value})
-                                }}
+                                       onChange={(e) => {
+                                           setThesisData({...thesisData, thesisTitle: e.target.value})
+                                       }}
                             />
                         </FormControl>
                     </FormGroup>
@@ -90,9 +90,9 @@ export default function AddThesis(){
                     >
                         <FormControl>
                             <TextField label={"ID Mahasiswa"} variant={"outlined"} size={"small"}
-                                onChange={(e) => {
-                                    setThesisData({...thesisData, studentId: e.target.value})
-                                }}
+                                       onChange={(e) => {
+                                           setThesisData({...thesisData, studentId: e.target.value})
+                                       }}
                             />
                         </FormControl>
                     </FormGroup>
@@ -102,9 +102,9 @@ export default function AddThesis(){
                         }}>
                         <FormControl>
                             <TextField label={"Nama Author"} variant={"outlined"} size={"small"}
-                                onChange={(e) => {
-                                    setThesisData({...thesisData, thesisAuthor: e.target.value})
-                                }}
+                                       onChange={(e) => {
+                                           setThesisData({...thesisData, thesisAuthor: e.target.value})
+                                       }}
                             />
                         </FormControl>
                     </FormGroup>
@@ -122,7 +122,7 @@ export default function AddThesis(){
                             {/*/>*/}
 
                             <FileUpload value={fileThesis}
-                                        // @ts-ignore
+                                // @ts-ignore
                                         onChange={setFileThesis}/>
                         </FormControl>
                     </FormGroup>
@@ -132,6 +132,6 @@ export default function AddThesis(){
                 </form>
 
             </Box>
-        </Layout>
+        </>
     )
 }

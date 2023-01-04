@@ -64,7 +64,7 @@ export default function Department(){
                         );
 
 
-                    navigate(`/edit-major/${thisRow.id}`)
+                    navigate(`/dashboard-admin/edit-major/${thisRow.id}`)
                 };
 
                 const handleDelete = async(e) => {
@@ -140,41 +140,39 @@ export default function Department(){
 
     return (
         <>
-            <Layout>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "auto",
-                    height: "auto",
-                    justifyContent: "space-between",
-                    marginTop: 1
-                }}>
-                    <Typography variant={"h6"}>Data Jurusan</Typography>
-                    <Link to={"/add-major"} style={{textDecoration: "none"}}>
-                        <Button variant={"contained"} sx={{
-                            textTransform: "capitalize"
-                        }}>Tambah Data</Button>
-                    </Link>
-                </Box>
-                {state.department ?
-                    <DataGrid columns={columns} rows={state.department} sx={{
-                        border: 2,
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "auto",
+                justifyContent: "space-between",
+                marginTop: 1
+            }}>
+                <Typography variant={"h6"}>Data Jurusan</Typography>
+                <Link to={"/dashboard-admin/add-major"} style={{textDecoration: "none"}}>
+                    <Button variant={"contained"} sx={{
+                        textTransform: "capitalize"
+                    }}>Tambah Data</Button>
+                </Link>
+            </Box>
+            {state.department ?
+                <DataGrid columns={columns} rows={state.department} sx={{
+                    border: 2,
+                    borderColor: "rgba(184, 184, 184, 0.21)",
+                    borderStyle: "dashed",
+                    background: "white",
+                    '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                        border: 1,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",
-                        background: "white",
-                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                            border: 1,
-                            borderColor: "rgba(184, 184, 184, 0.21)",
-                            borderStyle: "dashed",
-                        },
-                        height: {
-                            lg: 420,
-                            xl: 600
-                        },
-                        marginTop: 2,
-                    }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
-                }
-            </Layout>
+                    },
+                    height: {
+                        lg: 420,
+                        xl: 600
+                    },
+                    marginTop: 2,
+                }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
+            }
 
             <Dialog open={isOpenDialog} onClose={() => setIsOpenDialog(false)}>
                 <DialogTitle>{dialogContent.title}</DialogTitle>

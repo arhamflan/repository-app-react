@@ -143,7 +143,7 @@ export default function Thesis(){
                     marginTop: 1
                 }}>
                     <Typography variant={"h6"}>Data Skripsi</Typography>
-                    <Link to={"/add-thesis"} style={{textDecoration: "none"}}>
+                    <Link to={"/dashboard-admin/add-thesis"} style={{textDecoration: "none"}}>
                         <Button variant={"contained"} sx={{
                             textTransform: "capitalize"
                         }}>Tambah Data</Button>
