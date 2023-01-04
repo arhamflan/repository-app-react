@@ -10,7 +10,7 @@ import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
 import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
-import {endpointThesis} from "../../../../config/api-url";
+import {endpointParent} from "../../../../config/api-url";
 
 
 export default function Users(){
@@ -91,7 +91,7 @@ export default function Users(){
     const handleDelete = async(e) => {
         e.stopPropagation();
 
-        axios.delete(`http://167.172.64.153:3000/api/delete-thesis/${dialogContent.deletedId}`, {
+        axios.delete(`${endpointParent}/api/delete-thesis/${dialogContent.deletedId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -109,7 +109,7 @@ export default function Users(){
             logoutHooks()
             navigate("/login")
         } else {
-            axios.get(`http://167.172.64.153:3000/api/users`, {
+            axios.get(`${endpointParent}/api/users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -11,9 +11,7 @@ import axios from "axios";
 import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
-import getDepartmentHook from "../../../../use-case/department/getDepartmentHook";
-import deleteDepartmentHooks from "../../../../use-case/department/deleteDepartmentHooks";
-import {endpointThesis} from "../../../../config/api-url";
+import {endpointParent} from "../../../../config/api-url";
 
 
 export default function Paper(){
@@ -27,7 +25,6 @@ export default function Paper(){
     const {state} = useDepartmentContext()
 
     // @ts-ignore
-    const {getData} = getDepartmentHook()
 
 
     const {deleteDepartment} = useDepartmentContext()
@@ -111,7 +108,7 @@ export default function Paper(){
             logoutHooks()
             navigate("/login")
         } else {
-            axios.get(`http://167.172.64.153:3000/api/papers`, {
+            axios.get(`${endpointParent}/api/papers`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
