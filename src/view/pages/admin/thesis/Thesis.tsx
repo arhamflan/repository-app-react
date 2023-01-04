@@ -134,8 +134,7 @@ export default function Thesis(){
     // @ts-ignore
     return (
         <>
-            <Layout>
-                <Box sx={{
+            <Box sx={{
                     display: "flex",
                     flexDirection: "row",
                     width: "auto",
@@ -168,7 +167,6 @@ export default function Thesis(){
                         marginTop: 2,
                     }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
                 }
-            </Layout>
 
             <Dialog open={isOpenDialog} onClose={() => setIsOpenDialog(false)}>
                 <DialogTitle>{dialogContent.title}</DialogTitle>

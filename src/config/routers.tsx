@@ -4,6 +4,7 @@ import LoginPage from "../view/pages/auth/LoginPage";
 
 import DashboardPageAdmin from "../view/pages/admin/DashboardPageAdmin";
 import Paper from "../view/pages/admin/paper/Paper";
+import Thesis from "../view/pages/admin/thesis/Thesis";
 
 export default function Routers(){
     const routes = useRoutes([
@@ -13,12 +14,13 @@ export default function Routers(){
             index: true
         },
         {
-            path: "/dashboard",
+            path: "/dashboard-admin",
             element: <Layout/>,
             children: [
-                {element: <Navigate to={"dashboard-admin"}/>},
-                {path: "dashboard-admin", element: <DashboardPageAdmin/>},
-                {path: "paper", element: <Paper/>}
+                {element: <Navigate to={"index"}/>},
+                {path: "index", element: <DashboardPageAdmin/>},
+                {path: "paper", element: <Paper/>},
+                {path: "thesis", element: <Thesis/>}
             ]
         }
     ])
