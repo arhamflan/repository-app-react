@@ -71,7 +71,7 @@ export default function AddThesis(){
             }).then((response) => {
                 setLoading(false)
                 toast.success('Berhasil Upload Skripsi',{
-                    duration: 2000,
+                    duration: 1000,
                     position: 'bottom-center'
                 })
                 setTimeout(() => {

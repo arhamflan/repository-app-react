@@ -20,6 +20,8 @@ import Sidebar from "../../../component/Sidebar";
 import axios from "axios";
 import Layout from "../../../layouts/Layout";
 import addDepartmentHooks from "../../../../use-case/department/addDepartmentHooks";
+import {Toaster, toast} from "react-hot-toast";
+import {LoadingButton} from "@mui/lab";
 
 
 
@@ -37,15 +39,27 @@ function AddDepartment(){
 
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState(false)
+
     const token = localStorage.getItem("token")
     async function handleSubmit(e){
         e.preventDefault()
 
+        setLoading(true)
+
         const data = await addDepartmentHooks(major)
         if(data === true){
+            setLoading(false)
             console.log(data)
-            navigate("/dashboard-admin/major")
+            toast.success('Berhasil Tambah Jurusan',{
+                duration: 1000,
+                position: 'bottom-center'
+            })
+            setTimeout(() => {
+                navigate("/dashboard-admin/major")
+            }, 2000)
         } else {
+            setLoading(false)
             setDialogContent({
                 title: "Kesalahan Input",
                 description: data.response.data.message
@@ -92,7 +106,14 @@ function AddDepartment(){
                         </FormControl>
                     </FormGroup>
                     <FormControl fullWidth>
-                        <ButtonSubmit name={"Submit"}/>
+                        {!loading ?
+                            <ButtonSubmit name={"Submit"}/> :
+                            <LoadingButton loading={true} variant={"contained"} sx={{
+                                textTransform: "capitalize",
+                                marginLeft: "auto",
+                                marginY: 3,
+                            }}>Send</LoadingButton>
+                        }
                     </FormControl>
                 </form>
 
@@ -114,6 +135,7 @@ function AddDepartment(){
                 </DialogActions>
             </Dialog>
 
+            <Toaster/>
         </>
     )
 

@@ -10,6 +10,8 @@ import axios from "axios";
 import {endpointParent} from "../../../../config/api-url";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import editDepartmentHooks from "../../../../use-case/department/editDepartmentHooks";
+import {toast, Toaster} from "react-hot-toast";
+import {LoadingButton} from "@mui/lab";
 
 
 function EditDepartment(){
@@ -21,18 +23,31 @@ function EditDepartment(){
         field: ""
     })
 
+    const [loading, setLoading] = useState(false)
+
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
     async function handleSubmit(e){
         e.preventDefault()
+
+        setLoading(true)
+
         const data = await editDepartmentHooks({
             id: id,
             field: state.departmentDetail.field
         })
         if(data === true){
-            navigate("/dashboard-admin/major")
+            setLoading(false)
+            toast.success('Berhasil Edit Jurusan',{
+                duration: 1000,
+                position: 'bottom-center'
+            })
+            setTimeout(() => {
+                navigate("/dashboard-admin/major")
+            }, 2000)
         } else {
+            setLoading(false)
             console.log(data)
         }
     }
@@ -86,12 +101,21 @@ function EditDepartment(){
                             </FormControl>
                         </FormGroup>
                         <FormControl fullWidth>
-                            <ButtonSubmit name={"Submit"}/>
+                            {!loading ?
+                                <ButtonSubmit name={"Submit"}/> :
+                                <LoadingButton loading={true} variant={"contained"} sx={{
+                                    textTransform: "capitalize",
+                                    marginLeft: "auto",
+                                    marginY: 3,
+                                }}>Send</LoadingButton>
+                            }
                         </FormControl>
                     </form> : ""
                 }
 
             </Box>
+
+            <Toaster/>
         </>
     )
 
