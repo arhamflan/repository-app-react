@@ -11,6 +11,7 @@ import AddDepartment from "../view/pages/admin/department/AddDepartment";
 import EditDepartment from "../view/pages/admin/department/EditDepartment";
 import DashboardPageStudent from "../view/pages/students/DashboardPageStudent";
 import AddThesis from "../view/pages/admin/thesis/AddThesis";
+import Users from "../view/pages/admin/users/Users";
 
 export default function Routers(){
     const routes = useRoutes([
@@ -31,7 +32,8 @@ export default function Routers(){
                 {path: "add-thesis", element: <AddThesis/>},
                 {path: "major", element: <Department/>},
                 {path: "add-major", element: <AddDepartment/>},
-                {path: "edit-major/:id", element: <EditDepartment/>}
+                {path: "edit-major/:id", element: <EditDepartment/>},
+                {path: "users", element: <Users/>}
             ]
         },
         {

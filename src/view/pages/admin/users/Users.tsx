@@ -124,36 +124,34 @@ export default function Users(){
     // @ts-ignore
     return (
         <>
-            <Layout>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "auto",
-                    height: "auto",
-                    justifyContent: "space-between",
-                    marginTop: 1
-                }}>
-                    <Typography variant={"h6"}>Data User</Typography>
-                </Box>
-                {usersData ?
-                    <DataGrid columns={columns} rows={usersData} sx={{
-                        border: 2,
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "auto",
+                justifyContent: "space-between",
+                marginTop: 1
+            }}>
+                <Typography variant={"h6"}>Data User</Typography>
+            </Box>
+            {usersData ?
+                <DataGrid columns={columns} rows={usersData} sx={{
+                    border: 2,
+                    borderColor: "rgba(184, 184, 184, 0.21)",
+                    borderStyle: "dashed",
+                    background: "white",
+                    '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
+                        border: 1,
                         borderColor: "rgba(184, 184, 184, 0.21)",
                         borderStyle: "dashed",
-                        background: "white",
-                        '& .MuiDataGrid-columnsContainer, .MuiDataGrid-cell': {
-                            border: 1,
-                            borderColor: "rgba(184, 184, 184, 0.21)",
-                            borderStyle: "dashed",
-                        },
-                        height: {
-                            lg: 420,
-                            xl: 600
-                        },
-                        marginTop: 2,
-                    }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
-                }
-            </Layout>
+                    },
+                    height: {
+                        lg: 420,
+                        xl: 600
+                    },
+                    marginTop: 2,
+                }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
+            }
 
             <Dialog open={isOpenDialog} onClose={() => setIsOpenDialog(false)}>
                 <DialogTitle>{dialogContent.title}</DialogTitle>

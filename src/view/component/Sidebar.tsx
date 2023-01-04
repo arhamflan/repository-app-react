@@ -69,7 +69,7 @@ function Sidebar(){
                                 <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to={"/users-access"} style={{textDecoration: "none"}}>
+                        <Link to={"/dashboard-admin/users"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/users-access"}>
                                 <ListItemIcon><ManageAccounts/></ListItemIcon>
                                 <Typography variant="body2" color={"black"}>Pengaturan Akun</Typography>
