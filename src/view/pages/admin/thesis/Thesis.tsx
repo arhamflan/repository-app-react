@@ -10,7 +10,7 @@ import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import axios from "axios";
 import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
-import {endpointThesis} from "../../../../config/api-url";
+import {endpointParent} from "../../../../config/api-url";
 
 
 export default function Thesis(){
@@ -119,7 +119,7 @@ export default function Thesis(){
             logoutHooks()
             navigate("/login")
         } else {
-            axios.get(`${endpointThesis}`, {
+            axios.get(`${endpointParent}/api/theses`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

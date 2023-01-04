@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useDepartmentContext} from "../../providers/use/useDepartmentContext";
+import {endpointParent} from "../../config/api-url";
 
 
 function getDepartmentHook(){
@@ -7,7 +8,7 @@ function getDepartmentHook(){
     const {setDepartment} = useDepartmentContext()
 
     const getData = async() => {
-        await axios.get('http://167.172.64.153:3000/api/fields')
+        await axios.get(`${endpointParent}/api/fields`)
             .then((response) => {
                 setDepartment(response.data.data)
             }).catch((error) => {

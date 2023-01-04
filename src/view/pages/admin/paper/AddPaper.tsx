@@ -6,8 +6,8 @@ import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {endpointThesis} from "../../../../config/api-url";
 import FileUpload from "react-material-file-upload";
+import {endpointParent} from "../../../../config/api-url";
 
 
 export default function AddPaper(){
@@ -33,7 +33,7 @@ export default function AddPaper(){
         formData.append('paperAuthor', paperData.paperAuthor)
         formData.append('paper', filePaper[0], filePaper[0].name)
 
-        axios.post(`http://167.172.64.153:3000/api/admin-upload-paper`, formData, {
+        axios.post(`${endpointParent}/api/admin-upload-paper`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

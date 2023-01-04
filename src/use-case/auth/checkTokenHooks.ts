@@ -8,6 +8,7 @@ export default function checkTokenHooks(){
     if(decodeTokenAuth){
         // @ts-ignore
         const role = decodeTokenAuth.roles
+        console.log(role)
         return {expiredToken, role, token}
     } else {
         return {expiredToken, token}

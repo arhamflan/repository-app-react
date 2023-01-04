@@ -27,17 +27,14 @@ function NavigationBar(){
         <>
         <Box sx={{
                     flexGrow: 1,
-                    paddingX: 2,
-                    paddingY: 1,
                     top: 0,
                     right: 0,
                     left: 0
                 }}
 
-                className={styles.glasseffect}
 
                 >
-                <AppBar position={"sticky"} sx={{borderRadius: 2}}>
+                <AppBar position={"sticky"}>
                     <Toolbar>
                         <Box marginRight={2}>
                             <IconButton>

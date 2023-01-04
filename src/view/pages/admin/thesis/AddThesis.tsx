@@ -6,8 +6,8 @@ import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
 import {logoutHooks} from "../../../../use-case/auth/logoutHooks";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {endpointThesis} from "../../../../config/api-url";
 import FileUpload from "react-material-file-upload";
+import {endpointParent} from "../../../../config/api-url";
 
 
 export default function AddThesis(){
@@ -33,7 +33,7 @@ export default function AddThesis(){
         formData.append('thesisAuthor', thesisData.thesisAuthor)
         formData.append('thesis', fileThesis[0], fileThesis[0].name)
 
-        axios.post(`http://167.172.64.153:3000/api/admin-upload-thesis`, formData, {
+        axios.post(`${endpointParent}/api/admin-upload-thesis`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

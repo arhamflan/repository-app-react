@@ -7,7 +7,7 @@ import ButtonSubmit from "../../../component/ButtonSubmit";
 import NavigationBar from "../../../component/NavigationBar";
 import Sidebar from "../../../component/Sidebar";
 import axios from "axios";
-import {endpointField} from "../../../../config/api-url";
+import {endpointParent} from "../../../../config/api-url";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import editDepartmentHooks from "../../../../use-case/department/editDepartmentHooks";
 
@@ -45,7 +45,7 @@ function EditDepartment(){
             navigate("/login")
         }
 
-        axios.get(`${endpointField}/${id}`, {
+        axios.get(`${endpointParent}/api/field/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

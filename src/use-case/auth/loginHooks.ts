@@ -1,7 +1,8 @@
 import axios from "axios";
+import {endpointParent} from "../../config/api-url";
 
 export function loginHooks(data: any): any{
-    const login = axios.post('http://167.172.64.153:3000/api/authorize', {
+    const login = axios.post(`${endpointParent}/api/authorize`, {
         credential: data.credential
         }).then(response => {
             console.log(response)

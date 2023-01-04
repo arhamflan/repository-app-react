@@ -43,7 +43,7 @@ function Sidebar(){
     return (
         <>
             <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
-                {(token && role.includes("admin")) ?
+                {(role.includes("admin")) ?
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
                         <Link to={"/dashboard-admin/index"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/dashboard-admin/index"}>

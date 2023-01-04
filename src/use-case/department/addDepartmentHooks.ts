@@ -1,10 +1,11 @@
 import axios from "axios";
+import {endpointParent} from "../../config/api-url";
 
 export default function addDepartmentHooks(data: object){
 
     const token = localStorage.getItem("token")
 
-    const sendData = axios.post('http://167.172.64.153:3000/api/field', {
+    const sendData = axios.post(`${endpointParent}/api/field`, {
         // @ts-ignore
         field: data.field
     }, {

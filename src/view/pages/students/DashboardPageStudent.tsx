@@ -33,7 +33,7 @@ function DashboardPageStudent(){
             const token = localStorage.getItem("token")
             const decodeTokenAuth = decodeToken(token)
             // @ts-ignore
-            if(decodeTokenAuth.roles.includes("admin") || decodeTokenAuth.roles.includes("civitas")){
+            if(decodeTokenAuth.roles.includes("admin") ){
                 navigate(-1)
             }
         }
