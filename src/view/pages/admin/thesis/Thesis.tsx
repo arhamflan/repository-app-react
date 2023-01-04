@@ -99,7 +99,7 @@ export default function Thesis(){
     const handleDelete = async(e) => {
         e.stopPropagation();
 
-        axios.delete(`http://167.172.64.153:3000/api/delete-thesis/${dialogContent.deletedId}`, {
+        axios.delete(`${endpointParent}/delete-thesis/${dialogContent.deletedId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -107,7 +107,7 @@ export default function Thesis(){
             setThesisData(thesisData.filter((data, index) => data.id !== dialogContent.deletedId))
             setIsOpenDialog(false)
         }).catch((error) => {
-            console.log(error)
+            console.log(error.message)
         })
     }
 

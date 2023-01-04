@@ -115,7 +115,6 @@ export default function Paper(){
             }).then((response) => {
                 setPaperData(response.data.data)
             }).catch((error) => {
-                console.log(error)
             })
         }
     }, [])
