@@ -12,6 +12,7 @@ import Layout from "../../../layouts/Layout";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import getDepartmentHook from "../../../../use-case/department/getDepartmentHook";
 import deleteDepartmentHooks from "../../../../use-case/department/deleteDepartmentHooks";
+import {toast, Toaster} from "react-hot-toast";
 
 
 export default function Department(){
@@ -121,7 +122,12 @@ export default function Department(){
         if(data === true){
             deleteDepartment(dialogContent.deleteId)
             setIsOpenDialog(false)
+            toast.success('Berhasil Hapus Jurusan',{
+                duration: 1000,
+                position: 'bottom-center'
+            })
         } else {
+            setIsOpenDialog(false)
             console.log("Failed to delete")
         }
     }
@@ -190,6 +196,8 @@ export default function Department(){
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Toaster/>
         </>
     )
 
