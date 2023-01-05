@@ -81,7 +81,7 @@ export default function AddPaper(){
                 setLoading(false)
                 setDialogContent({
                     title: "Perhatian",
-                    description: error.response.data.message
+                    description: error.message
                 })
                 setIsOpenDialog(true)
             })

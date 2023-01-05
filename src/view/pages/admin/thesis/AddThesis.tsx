@@ -60,7 +60,6 @@ export default function AddThesis(){
         } else {
             const formData = new FormData();
             formData.append('thesisTitle', thesisData.thesisTitle)
-            formData.append('studentId', thesisData.studentId)
             formData.append('thesisAuthor', thesisData.thesisAuthor)
             formData.append('thesis', fileThesis[0], fileThesis[0].name)
 
@@ -81,7 +80,7 @@ export default function AddThesis(){
                 setLoading(false)
                 setDialogContent({
                     title: "Perhatian",
-                    description: error.response.data.message
+                    description: error.message
                 })
                 setIsOpenDialog(true)
             })

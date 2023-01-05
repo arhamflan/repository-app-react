@@ -13,7 +13,7 @@ export const SidebarData = [
     },
     {
         title: 'Mahasiswa',
-        path: '/students',
+        path: '/user',
         icon: <LocalLibrary/>
     },
     {

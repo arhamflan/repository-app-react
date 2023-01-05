@@ -18,7 +18,7 @@ import Layout from "../../layouts/Layout";
 
 
 
-function DashboardPageStudent(){
+function DashboardPageUser(){
 
     const navigate = useNavigate()
 
@@ -46,4 +46,4 @@ function DashboardPageStudent(){
     )
 }
 
-export default DashboardPageStudent;
+export default DashboardPageUser;

@@ -45,7 +45,7 @@ function LoginPage(){
                 if(decodeTokenAuth.roles.includes("admin")){
                     navigate("/dashboard-admin/index")
                 } else {
-                    navigate("/dashboard-student/index")
+                    navigate("/dashboard-user/index")
                 }
             }, 2000)
         } else {

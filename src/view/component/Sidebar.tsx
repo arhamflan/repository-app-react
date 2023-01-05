@@ -83,7 +83,7 @@ function Sidebar(){
                         </Box>
                     </MenuList> :
                     <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/dashboard-student/index"} style={{textDecoration: "none"}}>
+                        <Link to={"/dashboard-user/index"} style={{textDecoration: "none"}}>
                             <MenuItem selected={location.pathname === "/dashboard-student/index"}>
                                 <ListItemIcon><GridView/></ListItemIcon>
                                 <Typography variant="body2" color={"black"} >Dashboard</Typography>
