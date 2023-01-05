@@ -1,4 +1,4 @@
-import { Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, ListItem } from "@mui/material";
+import {Paper, MenuList, MenuItem, ListItemIcon, Typography, Divider, Box, ListItem, Collapse} from "@mui/material";
 
 import {
     GridView,
@@ -13,8 +13,9 @@ import {
 } from "@mui/icons-material";
 import {useNavigate, Link, useLocation} from "react-router-dom";
 import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
-import {useEffect} from "react";
-import {logoutHooks} from "../../use-case/auth/logoutHooks";
+import {useEffect, useState} from "react";
+
+import menuItemAdmin from "./menu/SidebarMenuItemAdmin";
 
 
 function Sidebar(){
@@ -22,6 +23,8 @@ function Sidebar(){
     const {role, token} = checkTokenHooks()
 
     const navigate = useNavigate()
+
+    const [openCollapseIndex, setOpenCollapseIndex] = useState(null)
 
     const handleLogout = () => {
         localStorage.removeItem("token")
@@ -43,68 +46,62 @@ function Sidebar(){
     return (
         <>
             <Paper elevation={0} variant="outlined" sx={{ border: 2, bgcolor:"#fff", height: "78vh", borderRadius: 4, borderStyle: "dashed", borderColor: "rgba(184, 184, 184, 0.21)"}}>
-                {(role.includes("admin")) ?
-                    <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/dashboard-admin/index"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/dashboard-admin/index"}>
-                                <ListItemIcon><GridView/></ListItemIcon>
-                                <Typography variant="body2" color={"black"} >Dashboard</Typography>
-                            </MenuItem>
-                        </Link>
-                        <Link to={"/dashboard-admin/paper"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/dashboard-admin/paper"}>
+                <MenuList sx={{height: "100%", paddingTop: 2}}>
+                    {role.includes("admin") ?
+                        menuItemAdmin.map((item, index) => {
+                            return (
+                                <Link to={item.link} style={{textDecoration: "none"}} key={index}>
+                                    <MenuItem selected={location.pathname === item.link} onClick={() => {
+                                        setOpenCollapseIndex(index)
+                                        console.log(index)
+                                    }}>
+                                        <ListItemIcon>{item.icon}</ListItemIcon>
+                                        <Typography variant="body2" color={"black"} >{item.name}</Typography>
+                                    </MenuItem>
+                                    {item.items ?
+                                        <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
+                                            <MenuList>
+                                                {item.items ?
+                                                    item.items.map((menuItems, index) => {
+                                                        return (
+                                                            <MenuItem key={index}>
+                                                                <Typography>{menuItems.name}</Typography>
+                                                            </MenuItem>
+                                                        )
+                                                    }) : <></>
+                                                }
+                                            </MenuList>
+                                        </Collapse> : <></>
+                                    }
+
+                                </Link>
+                            )
+                        })
+                        :
+                        <>
+                            <Link to={"/dashboard-user/index"} style={{textDecoration: "none"}}>
+                                <MenuItem selected={location.pathname === "/dashboard-student/index"}>
+                                    <ListItemIcon><GridView/></ListItemIcon>
+                                    <Typography variant="body2" color={"black"} >Dashboard</Typography>
+                                </MenuItem>
+                            </Link>
+                            <MenuItem >
                                 <ListItemIcon><Style/></ListItemIcon>
-                                <Typography variant="body2" color={"black"}>Data Paper</Typography>
+                                <Typography variant="body2" color={"black"}>Upload Paper</Typography>
                             </MenuItem>
-                        </Link>
-                        <Link to={"/dashboard-admin/thesis"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/thesis"}>
+                            <MenuItem>
                                 <ListItemIcon><Article/></ListItemIcon>
-                                <Typography variant={"body2"} color={"black"}>Data Skripsi</Typography>
+                                <Typography variant={"body2"} color={"black"}>Upload Skripsi</Typography>
                             </MenuItem>
-                        </Link>
-                        <Link to={"/dashboard-admin/major"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/major"}>
-                                <ListItemIcon><SchoolOutlined/></ListItemIcon>
-                                <Typography variant="body2" color={"black"}>Data Jurusan</Typography>
-                            </MenuItem>
-                        </Link>
-                        <Link to={"/dashboard-admin/users"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/users-access"}>
-                                <ListItemIcon><ManageAccounts/></ListItemIcon>
-                                <Typography variant="body2" color={"black"}>Pengaturan Akun</Typography>
-                            </MenuItem>
-                        </Link>
-                        <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
-                            <MenuItem onClick={handleLogout}>
-                                <ListItemIcon><Logout/></ListItemIcon>
-                                <Typography variant="body2">Logout</Typography>
-                            </MenuItem>
-                        </Box>
-                    </MenuList> :
-                    <MenuList sx={{height: "100%", paddingTop: 2}}>
-                        <Link to={"/dashboard-user/index"} style={{textDecoration: "none"}}>
-                            <MenuItem selected={location.pathname === "/dashboard-student/index"}>
-                                <ListItemIcon><GridView/></ListItemIcon>
-                                <Typography variant="body2" color={"black"} >Dashboard</Typography>
-                            </MenuItem>
-                        </Link>
-                        <MenuItem >
-                            <ListItemIcon><Style/></ListItemIcon>
-                            <Typography variant="body2" color={"black"}>Upload Paper</Typography>
+                        </>
+                    }
+                    <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
+                        <MenuItem onClick={handleLogout}>
+                            <ListItemIcon><Logout/></ListItemIcon>
+                            <Typography variant="body2">Logout</Typography>
                         </MenuItem>
-                        <MenuItem>
-                            <ListItemIcon><Article/></ListItemIcon>
-                            <Typography variant={"body2"} color={"black"}>Upload Skripsi</Typography>
-                        </MenuItem>
-                        <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>
-                            <MenuItem onClick={handleLogout}>
-                                <ListItemIcon><Logout/></ListItemIcon>
-                                <Typography variant="body2">Logout</Typography>
-                            </MenuItem>
-                        </Box>
-                    </MenuList>
-                }
+                    </Box>
+                </MenuList>
             </Paper> 
         </>
     )
