@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     port: 3000
   },
-  define: {
-    'process.env.NODE_ENV': `${process.env.NODE_ENV}`
-  }
+  // define: {
+  //   'process.env.NODE_ENV': `${process.env.NODE_ENV}`
+  // }
 })
