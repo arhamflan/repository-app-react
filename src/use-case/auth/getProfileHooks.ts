@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { ProfileContextProvider } from "../../providers/auth/ProfileContextProviders";
 import { useProfileContext } from "../../providers/use/useProfileContext";
+import {endpointParent} from "../../config/api-url";
 
 export default function getProfileHooks(){
     const [loading, setLoading] = useState<boolean>(false)
@@ -10,7 +11,7 @@ export default function getProfileHooks(){
 
     const token = localStorage.getItem("token")
     const getUser = async() => {
-        await axios.get('http://167.172.64.153:3000/api/profile', {
+        await axios.get(`${endpointParent}/api/profile`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

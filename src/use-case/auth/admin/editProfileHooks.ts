@@ -1,5 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
+import {endpointParent} from "../../../config/api-url";
 
 
 export default function editProfileHooks(data: object): any{
@@ -8,7 +9,7 @@ export default function editProfileHooks(data: object): any{
 
 
 
-    const editProfile = axios.put("http://167.172.64.153:3000/api/change-profile", {
+    const editProfile = axios.put(`${endpointParent}/api/change-profile`, {
         // @ts-ignore
         phone: data.profile.phone,
         // @ts-ignore

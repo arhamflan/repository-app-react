@@ -51,38 +51,7 @@ function Sidebar(){
                     {role.includes("admin") ?
                         menuItemAdmin.map((item, index) => {
                             return (
-                                <Link to={item.link} style={{textDecoration: "none"}} key={index}>
-                                    <MenuItem selected={location.pathname === item.link} onClick={() => {
-                                        setOpenCollapseIndex(index)
-                                        console.log(index)
-                                    }}>
-                                        <ListItemIcon>{item.icon}</ListItemIcon>
-                                        <Typography variant="body2" color={"black"} >{item.name}</Typography>
-
-                                    </MenuItem>
-                                    {item.items ?
-                                        <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
-                                            <MenuList>
-                                                {item.items ?
-                                                    item.items.map((menuItems, index) => {
-                                                        return (
-                                                            <MenuItem>
-                                                                <Typography>{menuItems.name}</Typography>
-                                                            </MenuItem>
-                                                        )
-                                                    }) : <></>
-                                                }
-                                            </MenuList>
-                                        </Collapse> : <></>
-                                    }
-
-                                </Link>
-                            )
-                        })
-                        :
-                        <>
-                            {menuItemUser.map((item, index) => {
-                                return (
+                                <>
                                     <Link to={item.link} style={{textDecoration: "none"}} key={index}>
                                         <MenuItem selected={location.pathname === item.link} onClick={() => {
                                             setOpenCollapseIndex(index)
@@ -90,38 +59,74 @@ function Sidebar(){
                                         }}>
                                             <ListItemIcon>{item.icon}</ListItemIcon>
                                             <Typography variant="body2" color={"black"} >{item.name}</Typography>
-                                            {item.items.length > 0 ?
-                                                <>
-                                                    {index === openCollapseIndex ?
-                                                        <ExpandLess sx={{
-                                                            marginLeft: "auto"
-                                                        }}/> : <ExpandMore sx={{
-                                                            marginLeft: "auto"
-                                                        }}/>
-                                                    }
-                                                </>
-                                                : <></>}
+
                                         </MenuItem>
-                                        {item.items.length > 0 ?
-                                            <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
-                                                <MenuList>
+                                        {item.items ?
+                                            <>
+                                                <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
                                                     {item.items ?
                                                         item.items.map((menuItems, index) => {
                                                             return (
-                                                                <Link to={menuItems.link} style={{textDecoration: "none"}} key={index}>
-                                                                    <MenuItem selected={location.pathname === menuItems.link}>
-                                                                        <ListItemIcon></ListItemIcon>
-                                                                        <Typography variant={"body2"} color={"black"}>{menuItems.name}</Typography>
-                                                                    </MenuItem>
-                                                                </Link>
+                                                                <MenuItem>
+                                                                    <Typography>{menuItems.name}</Typography>
+                                                                </MenuItem>
                                                             )
                                                         }) : <></>
                                                     }
-                                                </MenuList>
-                                            </Collapse> : <></>
+                                                </Collapse>
+                                            </>: <></>
                                         }
 
                                     </Link>
+                                </>
+                            )
+                        })
+                        :
+                        <>
+                            {menuItemUser.map((item, index) => {
+                                return (
+                                    <>
+                                        <Link to={item.link} style={{textDecoration: "none"}} key={index}>
+                                            <MenuItem selected={location.pathname === item.link} onClick={() => {
+                                                setOpenCollapseIndex(index)
+                                            }}>
+                                                <ListItemIcon>{item.icon}</ListItemIcon>
+                                                <Typography variant="body2" color={"black"} >{item.name}</Typography>
+                                                {item.items.length > 0 ?
+                                                    <>
+                                                        {index === openCollapseIndex ?
+                                                            <ExpandLess sx={{
+                                                                marginLeft: "auto",
+                                                                color: "black"
+                                                            }}/> : <ExpandMore sx={{
+                                                                marginLeft: "auto",
+                                                                color: "black"
+                                                            }}/>
+                                                        }
+                                                    </>
+                                                    : <></>}
+                                            </MenuItem>
+                                            {item.items.length > 0 ?
+                                                <>
+                                                    <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
+                                                        {item.items ?
+                                                            item.items.map((menuItems, index) => {
+                                                                return (
+                                                                    <Link to={menuItems.link} style={{textDecoration: "none"}} key={index}>
+                                                                        <MenuItem selected={location.pathname === menuItems.link}>
+                                                                            <ListItemIcon></ListItemIcon>
+                                                                            <Typography variant={"body2"} color={"black"}>{menuItems.name}</Typography>
+                                                                        </MenuItem>
+                                                                    </Link>
+                                                                )
+                                                            }) : <></>
+                                                        }
+                                                    </Collapse>
+                                                </> : <></>
+                                            }
+
+                                        </Link>
+                                    </>
                                 )
                             })}
                         </>

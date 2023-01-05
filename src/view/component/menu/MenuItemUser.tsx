@@ -14,20 +14,31 @@ let menuItemUser: any[] = [
         icon: <Style/>,
         items: [
             {
-                name: 'Jurnal',
-                link: '/dashboard-user/list-paper'
+                name: 'Jurnal Saya',
+                link: '/dashboard-user/list-paper-user'
             },
             {
                 name: 'Upload Jurnal',
-                link: '/dashboard-user/upload-paper'
+                link: '/dashboard-user/upload-paper-user'
             }
         ]
     },
     {
         name: 'Data Skripsi',
-        link: '/dashboard-user/thesis',
+        link: '#',
         icon: <Article/>,
-        items : []
+        items : [
+            {
+                name: 'Skripsi',
+                link: '/dashboard-user/thesis-data',
+                type: ["student", "civitas"]
+            },
+            {
+                name: 'Upload Skripsi',
+                link: '/dashboard-user/upload-thesis',
+                type: ["student"]
+            }
+        ]
     }
 ]
 

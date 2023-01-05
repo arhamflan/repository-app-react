@@ -14,6 +14,8 @@ import AddThesis from "../view/pages/admin/thesis/AddThesis";
 import Users from "../view/pages/admin/users/Users";
 
 import {GridView} from "@mui/icons-material";
+import ProfilePage from "../view/pages/ProfilePage";
+import EditProfile from "../view/pages/auth/admin/EditProfile";
 
 export default function Routers(){
     const routes = useRoutes([
@@ -35,7 +37,9 @@ export default function Routers(){
                 {path: "major", element: <Department/>},
                 {path: "add-major", element: <AddDepartment/>},
                 {path: "edit-major/:id", element: <EditDepartment/>},
-                {path: "users", element: <Users/>}
+                {path: "users", element: <Users/>},
+                {path: "profile", element: <ProfilePage/>},
+                {path: "edit-profile", element: <EditProfile/>}
             ]
         },
         {
@@ -43,7 +47,12 @@ export default function Routers(){
             element: <Layout/>,
             children: [
                 {path: "index", element: <DashboardPageUser/>},
-                {path: "list-paper"}
+                {path: "profile", element: <ProfilePage/>},
+                {path: "list-paper"},
+                {path: "list-paper-user"},
+                {path: "upload-paper-user"},
+                {path: "thesis-data"},
+                {path: "upload-thesis"}
             ]
         }
     ])

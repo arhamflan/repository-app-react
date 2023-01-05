@@ -13,7 +13,6 @@ import {TextField} from "@mui/material";
 import { LoadingButton } from '@mui/lab';
 import editProfileHooks from "../../../../use-case/auth/admin/editProfileHooks";
 import {toast, Toaster} from "react-hot-toast";
-import Layout from "../../../layouts/Layout";
 
 function EditProfile(){
     const {loading, getUser, setLoading} = getProfileHooks()
@@ -31,13 +30,13 @@ function EditProfile(){
         setLoadingSubmit(true)
         console.log(state)
         const useEditProfileHooks = await editProfileHooks(state)
-        toast.success("Berhasil", {
-            position: "top-right"
+        toast.success("Berhasil edit profile", {
+            position: "bottom-center"
         })
         setLoadingSubmit(false)
         setTimeout(() => {
             if(useEditProfileHooks === true){
-                navigate("/profile")
+                navigate("/dashboard-admin/profile")
             }
         }, 3000)
     }
@@ -63,156 +62,154 @@ function EditProfile(){
 
     return (
         <>
-            <Layout>
-                <Typography variant={"h6"} fontWeight={500}>Edit Profil</Typography>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "auto",
-                    height: "100%",
-                    justifyContent: "center",
-                }}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Box marginBottom={5}>
+            <Typography variant={"h6"} fontWeight={500}>Edit Profil</Typography>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "auto",
+                height: "100%",
+                justifyContent: "center",
+            }}>
+                <Grid container>
+                    <Grid item xs={12}>
+                        <Box marginBottom={5}>
+                            {loading &&
+                                <Skeleton
+                                    variant="circular"
+                                    width={80}
+                                    height={80}
+                                    sx={{marginX: "auto"}}
+                                />
+                            }
+                            {state && !loading ?
+                                <Avatar sx={{
+                                    height: 80,
+                                    width: 80,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    marginX: "auto"
+                                }} src={state.profile.picture}/>
+                                :
+                                <></>
+                            }
+                        </Box>
+
+                        <Box marginBottom={3} sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}>
+                            <Typography marginRight={1}>Nama : </Typography>
+                            <Typography align="center">
                                 {loading &&
                                     <Skeleton
-                                        variant="circular"
-                                        width={80}
-                                        height={80}
+                                        variant="rectangular"
+                                        width={150}
+                                        height={30}
                                         sx={{marginX: "auto"}}
                                     />
                                 }
                                 {state && !loading ?
-                                    <Avatar sx={{
-                                        height: 80,
-                                        width: 80,
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        marginX: "auto"
-                                    }} src={state.profile.picture}/>
+                                    state.profile.fullname || "Tidak ada"
                                     :
                                     <></>
                                 }
-                            </Box>
+                            </Typography>
+                        </Box>
 
-                            <Box marginBottom={3} sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center"
-                            }}>
-                                <Typography marginRight={1}>Nama : </Typography>
-                                <Typography align="center">
-                                    {loading &&
-                                        <Skeleton
-                                            variant="rectangular"
-                                            width={150}
-                                            height={30}
-                                            sx={{marginX: "auto"}}
-                                        />
+                        <Box marginBottom={3} sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}>
+                            <Typography marginRight={1}>Email : </Typography>
+                            <Typography align="center">
+                                {loading &&
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={150}
+                                        height={30}
+                                        sx={{marginX: "auto"}}
+                                    />
+                                }
+                                {state && !loading ?
+                                    state.profile.email || "Tidak ada"
+                                    :
+                                    <></>
+                                }
+                            </Typography>
+                        </Box>
+
+                        <Box marginBottom={3} sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}>
+                            <Typography sx={{marginRight: 1, marginY: "auto"}}>Alamat : </Typography>
+
+                            <Typography align="center">
+                                {loading &&
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={150}
+                                        height={30}
+                                        sx={{marginX: "auto"}}
+                                    />
+                                }
+                                {(!loading) ?
+                                    <TextField required label={"Alamat"} value={state.profile.address ? state.profile.address : ''} onChange={(e) => {
+                                        setProfile({address : e.target.value, type: "address"})
                                     }
-                                    {state && !loading ?
-                                        state.profile.fullname || "Tidak ada"
-                                        :
-                                        <></>
+                                    }/>
+                                    :
+                                    <></>
+                                }
+                            </Typography>
+                        </Box>
+
+                        <Box marginBottom={3} sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}>
+                            <Typography sx={{marginRight: 1, marginY: "auto"}}>Telepon : </Typography>
+
+                            <Typography align="center">
+                                {loading &&
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={150}
+                                        height={30}
+                                        sx={{marginX: "auto"}}
+                                    />
+                                }
+                                {(!loading) ?
+                                    <TextField label={"Telepon"} value={state.profile.phone ? state.profile.phone : ''} onChange={(e) => {
+                                        setProfile({phone : e.target.value, type: "phone"})
                                     }
-                                </Typography>
-                            </Box>
-
-                            <Box marginBottom={3} sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center"
-                            }}>
-                                <Typography marginRight={1}>Email : </Typography>
-                                <Typography align="center">
-                                    {loading &&
-                                        <Skeleton
-                                            variant="rectangular"
-                                            width={150}
-                                            height={30}
-                                            sx={{marginX: "auto"}}
-                                        />
-                                    }
-                                    {state && !loading ?
-                                        state.profile.email || "Tidak ada"
-                                        :
-                                        <></>
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box marginBottom={3} sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center"
-                            }}>
-                                <Typography sx={{marginRight: 1, marginY: "auto"}}>Alamat : </Typography>
-
-                                <Typography align="center">
-                                    {loading &&
-                                        <Skeleton
-                                            variant="rectangular"
-                                            width={150}
-                                            height={30}
-                                            sx={{marginX: "auto"}}
-                                        />
-                                    }
-                                    {(!loading) ?
-                                        <TextField required label={"Alamat"} value={state.profile.address ? state.profile.address : ''} onChange={(e) => {
-                                            setProfile({address : e.target.value, type: "address"})
-                                        }
-                                        }/>
-                                        :
-                                        <></>
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box marginBottom={3} sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center"
-                            }}>
-                                <Typography sx={{marginRight: 1, marginY: "auto"}}>Telepon : </Typography>
-
-                                <Typography align="center">
-                                    {loading &&
-                                        <Skeleton
-                                            variant="rectangular"
-                                            width={150}
-                                            height={30}
-                                            sx={{marginX: "auto"}}
-                                        />
-                                    }
-                                    {(!loading) ?
-                                        <TextField label={"Telepon"} value={state.profile.phone ? state.profile.phone : ''} onChange={(e) => {
-                                            setProfile({phone : e.target.value, type: "phone"})
-                                        }
-                                        } />
-                                        :
-                                        <></>
-                                    }
-                                </Typography>
-                            </Box>
+                                    } />
+                                    :
+                                    <></>
+                                }
+                            </Typography>
+                        </Box>
 
 
-                            <Box marginBottom={3} sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center"
-                            }}>
+                        <Box marginBottom={3} sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center"
+                        }}>
 
-                                {!loadingSubmit ? <Button variant={"contained"} sx={{
-                                    textTransform: "capitalize"
-                                }} onClick={handleSubmit} >Submit</Button> : <></>}
+                            {!loadingSubmit ? <Button variant={"contained"} sx={{
+                                textTransform: "capitalize"
+                            }} onClick={handleSubmit} >Submit</Button> : <></>}
 
-                                {loadingSubmit ? <LoadingButton loading loadingIndicator={"...loading"} variant="contained" sx={{textTransform: "capitalize"}}>Loading</LoadingButton> : <></>}
-                            </Box>
-                        </Grid>
+                            {loadingSubmit ? <LoadingButton loading loadingIndicator={"...loading"} variant="contained" sx={{textTransform: "capitalize"}}>Loading</LoadingButton> : <></>}
+                        </Box>
                     </Grid>
-                </Box>
-            </Layout>
+                </Grid>
+            </Box>
 
             <Toaster/>
         </>

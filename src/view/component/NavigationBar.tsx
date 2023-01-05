@@ -80,7 +80,7 @@ function NavigationBar(){
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                            <Link to="/profile" style={{textDecoration: "none"}}>
+                            <Link to="profile" style={{textDecoration: "none"}}>
                                 <MenuItem>
                                     <ListItemIcon><AccountCircle/></ListItemIcon>
                                     <Typography variant="body2" color={"black"}>Profil Saya</Typography>
