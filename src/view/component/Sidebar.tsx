@@ -9,13 +9,14 @@ import {
     SettingsAccessibility,
     ManageAccounts,
     Cookie,
-    SchoolOutlined, Article
+    SchoolOutlined, Article, ExpandLess, ExpandMore
 } from "@mui/icons-material";
 import {useNavigate, Link, useLocation} from "react-router-dom";
 import checkTokenHooks from "../../use-case/auth/checkTokenHooks";
 import {useEffect, useState} from "react";
 
-import menuItemAdmin from "./menu/SidebarMenuItemAdmin";
+import menuItemAdmin from "./menu/MenuItemAdmin";
+import menuItemUser from "./menu/MenuItemUser";
 
 
 function Sidebar(){
@@ -57,6 +58,7 @@ function Sidebar(){
                                     }}>
                                         <ListItemIcon>{item.icon}</ListItemIcon>
                                         <Typography variant="body2" color={"black"} >{item.name}</Typography>
+
                                     </MenuItem>
                                     {item.items ?
                                         <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
@@ -64,7 +66,7 @@ function Sidebar(){
                                                 {item.items ?
                                                     item.items.map((menuItems, index) => {
                                                         return (
-                                                            <MenuItem key={index}>
+                                                            <MenuItem>
                                                                 <Typography>{menuItems.name}</Typography>
                                                             </MenuItem>
                                                         )
@@ -79,20 +81,49 @@ function Sidebar(){
                         })
                         :
                         <>
-                            <Link to={"/dashboard-user/index"} style={{textDecoration: "none"}}>
-                                <MenuItem selected={location.pathname === "/dashboard-student/index"}>
-                                    <ListItemIcon><GridView/></ListItemIcon>
-                                    <Typography variant="body2" color={"black"} >Dashboard</Typography>
-                                </MenuItem>
-                            </Link>
-                            <MenuItem >
-                                <ListItemIcon><Style/></ListItemIcon>
-                                <Typography variant="body2" color={"black"}>Upload Paper</Typography>
-                            </MenuItem>
-                            <MenuItem>
-                                <ListItemIcon><Article/></ListItemIcon>
-                                <Typography variant={"body2"} color={"black"}>Upload Skripsi</Typography>
-                            </MenuItem>
+                            {menuItemUser.map((item, index) => {
+                                return (
+                                    <Link to={item.link} style={{textDecoration: "none"}} key={index}>
+                                        <MenuItem selected={location.pathname === item.link} onClick={() => {
+                                            setOpenCollapseIndex(index)
+                                            console.log(index)
+                                        }}>
+                                            <ListItemIcon>{item.icon}</ListItemIcon>
+                                            <Typography variant="body2" color={"black"} >{item.name}</Typography>
+                                            {item.items.length > 0 ?
+                                                <>
+                                                    {index === openCollapseIndex ?
+                                                        <ExpandLess sx={{
+                                                            marginLeft: "auto"
+                                                        }}/> : <ExpandMore sx={{
+                                                            marginLeft: "auto"
+                                                        }}/>
+                                                    }
+                                                </>
+                                                : <></>}
+                                        </MenuItem>
+                                        {item.items.length > 0 ?
+                                            <Collapse key={index} in={openCollapseIndex === index} unmountOnExit>
+                                                <MenuList>
+                                                    {item.items ?
+                                                        item.items.map((menuItems, index) => {
+                                                            return (
+                                                                <Link to={menuItems.link} style={{textDecoration: "none"}} key={index}>
+                                                                    <MenuItem selected={location.pathname === menuItems.link}>
+                                                                        <ListItemIcon></ListItemIcon>
+                                                                        <Typography variant={"body2"} color={"black"}>{menuItems.name}</Typography>
+                                                                    </MenuItem>
+                                                                </Link>
+                                                            )
+                                                        }) : <></>
+                                                    }
+                                                </MenuList>
+                                            </Collapse> : <></>
+                                        }
+
+                                    </Link>
+                                )
+                            })}
                         </>
                     }
                     <Box sx={{position: "absolute", right: 0, left: 0, bottom: 50}}>

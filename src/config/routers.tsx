@@ -42,7 +42,8 @@ export default function Routers(){
             path: "/dashboard-user",
             element: <Layout/>,
             children: [
-                {path: "index", element: <DashboardPageUser/>}
+                {path: "index", element: <DashboardPageUser/>},
+                {path: "list-paper"}
             ]
         }
     ])

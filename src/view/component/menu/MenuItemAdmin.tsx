@@ -18,27 +18,11 @@ let menuItemAdmin: any[] = [
         name: 'Data Skripsi',
         link: '/dashboard-admin/thesis',
         icon: <Article/>,
-        items: [
-            {
-                name: 'Mejority'
-            },
-            {
-                name: 'Mandatory'
-            }
-        ]
     },
     {
         name: 'Data Jurusan',
         link: '/dashboard-admin/major',
         icon: <SchoolOutlined/>,
-        items: [
-            {
-                name: 'Mejority'
-            },
-            {
-                name: 'Mandatory'
-            }
-        ]
     },
     {
         name: 'Pengaturan Akun',
