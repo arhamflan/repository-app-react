@@ -1,5 +1,5 @@
 import NavigationBar from "../../../component/NavigationBar";
-import {Box, Grid, IconButton, Typography} from "@mui/material";
+import {Box, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, Typography} from "@mui/material";
 import Sidebar from "../../../component/Sidebar";
 import {DataGrid, GridApi, GridCellValue, GridColDef, GridToolbar} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
@@ -12,6 +12,7 @@ import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
 import {useDepartmentContext} from "../../../../providers/use/useDepartmentContext";
 import {endpointParent} from "../../../../config/api-url";
+import {toast, Toaster} from "react-hot-toast";
 
 
 export default function Paper(){
@@ -22,7 +23,12 @@ export default function Paper(){
 
     const [paperData, setPaperData] = useState([])
 
-    const {state} = useDepartmentContext()
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
+    const [dialogContent, setDialogContent] = useState({
+        title: null,
+        description: null,
+        deletedId: null
+    })
 
     // @ts-ignore
 
@@ -66,18 +72,18 @@ export default function Paper(){
                         (c) => (thisRow[c.field] = params.getValue(params.id, c.field)),
                     );
 
-                const handleDelete = async(e) => {
+                const isDeleteContent = async(e) => {
                     e.stopPropagation();
 
-                    axios.delete(`http://167.172.64.153:3000/api/delete-paper/${thisRow.id}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }).then((response) => {
-                        setPaperData(paperData.filter(((data, index) => data.id !== thisRow.id)))
-                    }).catch((error) => {
-                        console.log(error)
+                    console.log("Testing")
+
+                    setDialogContent({
+                        title: 'Hapus Data',
+                        description: `Apakah kamu akan menghapus data dengan id ${thisRow.id}`,
+                        deletedId: thisRow.id
                     })
+
+                    setIsOpenDialog(true)
                 }
 
                 return <Box sx={{
@@ -87,7 +93,7 @@ export default function Paper(){
                     <IconButton>
                         <Download/>
                     </IconButton>
-                    <IconButton onClick={handleDelete}>
+                    <IconButton onClick={isDeleteContent}>
                         <Delete/>
                     </IconButton>
                     {thisRow.status[0] !== 'accepted' ?
@@ -99,6 +105,27 @@ export default function Paper(){
             },
         },
     ]
+
+
+    const handleDelete = (e) => {
+        e.stopPropagation();
+
+        axios.delete(`${endpointParent}/api/delete-paper/${dialogContent.deletedId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
+            setIsOpenDialog(false)
+            setPaperData(paperData.filter(((data, index) => data.id !== dialogContent.deletedId)))
+            toast.success('Berhasil Hapus Paper',{
+                duration: 1000,
+                position: 'bottom-center'
+            })
+        }).catch((error) => {
+            console.log(error)
+            setIsOpenDialog(false)
+        })
+    }
 
 
     useEffect(() => {
@@ -155,6 +182,25 @@ export default function Paper(){
                     marginTop: 2,
                 }} components={{ Toolbar: GridToolbar }}/> : <Typography>Loading....</Typography>
             }
+
+            <Dialog open={isOpenDialog} onClose={() => setIsOpenDialog(false)}>
+                <DialogTitle>{dialogContent.title}</DialogTitle>
+                <DialogContent><Typography>{dialogContent.description}</Typography></DialogContent>
+                <DialogActions>
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"outlined"} onClick={() => setIsOpenDialog(false)}>
+                        Batalkan
+                    </Button>
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"contained"} color={"error"} onClick={handleDelete}>
+                        Hapus
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Toaster/>
         </>
     )
 

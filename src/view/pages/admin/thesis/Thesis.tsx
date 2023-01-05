@@ -11,6 +11,7 @@ import axios from "axios";
 import {Check, Delete, Download, Edit} from "@mui/icons-material";
 import Layout from "../../../layouts/Layout";
 import {endpointParent} from "../../../../config/api-url";
+import {toast, Toaster} from "react-hot-toast";
 
 
 export default function Thesis(){
@@ -99,15 +100,20 @@ export default function Thesis(){
     const handleDelete = async(e) => {
         e.stopPropagation();
 
-        axios.delete(`${endpointParent}/delete-thesis/${dialogContent.deletedId}`, {
+        axios.delete(`${endpointParent}/api/delete-thesis/${dialogContent.deletedId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
             setThesisData(thesisData.filter((data, index) => data.id !== dialogContent.deletedId))
             setIsOpenDialog(false)
+            toast.success('Berhasil Hapus Skripsi',{
+                duration: 1000,
+                position: 'bottom-center'
+            })
         }).catch((error) => {
             console.log(error.message)
+            setIsOpenDialog(false)
         })
     }
 
@@ -125,6 +131,7 @@ export default function Thesis(){
                 }
             }).then((response) => {
                 setThesisData(response.data.data)
+                console.log(response.data.data)
             }).catch((error) => {
                 console.log(error)
             })
@@ -184,6 +191,8 @@ export default function Thesis(){
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Toaster/>
         </>
     )
 

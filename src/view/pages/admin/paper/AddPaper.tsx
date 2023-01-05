@@ -1,5 +1,15 @@
 import Layout from "../../../layouts/Layout";
-import {Box, FormControl, FormGroup, FormLabel, Input, TextField, Typography} from "@mui/material";
+import {
+    Box, Button, Dialog, DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControl,
+    FormGroup,
+    FormLabel,
+    Input,
+    TextField,
+    Typography
+} from "@mui/material";
 import ButtonSubmit from "../../../component/ButtonSubmit";
 import {useEffect, useState} from "react";
 import checkTokenHooks from "../../../../use-case/auth/checkTokenHooks";
@@ -8,6 +18,8 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import FileUpload from "react-material-file-upload";
 import {endpointParent} from "../../../../config/api-url";
+import { Toaster, toast } from "react-hot-toast";
+import {LoadingButton} from "@mui/lab";
 
 
 export default function AddPaper(){
@@ -20,6 +32,14 @@ export default function AddPaper(){
 
     const [filePaper, setFilePaper] = useState([])
 
+    const [loading,setLoading] = useState(false)
+
+    const [dialogContent, setDialogContent] = useState({
+        title: '',
+        description: ''
+    })
+    const [isOpenDialog, setIsOpenDialog] = useState(false)
+
     const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
@@ -27,21 +47,45 @@ export default function AddPaper(){
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const formData = new FormData();
-        formData.append('paperTitle', paperData.paperTitle)
-        formData.append('studentId', paperData.studentId)
-        formData.append('paperAuthor', paperData.paperAuthor)
-        formData.append('paper', filePaper[0], filePaper[0].name)
+        setLoading(true)
 
-        axios.post(`${endpointParent}/api/admin-upload-paper`, formData, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response) => {
-            navigate("/dashboard-admin/paper")
-        }).catch((error) => {
-            console.log(error)
-        })
+        if(filePaper.length === 0){
+            console.log("Harus ada file yang di upload")
+            setDialogContent({
+                title: "Perhatian",
+                description: "Harus mengupload file"
+            })
+            setIsOpenDialog(true)
+            setLoading(false)
+        } else {
+            const formData = new FormData();
+            formData.append('paperTitle', paperData.paperTitle)
+            formData.append('studentId', paperData.studentId)
+            formData.append('paperAuthor', paperData.paperAuthor)
+            formData.append('paper', filePaper[0], filePaper[0].name)
+
+            axios.post(`${endpointParent}/api/admin-upload-paper`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
+                setLoading(false)
+                toast.success('Berhasil Upload Paper',{
+                    duration: 1000,
+                    position: 'bottom-center'
+                })
+                setTimeout(() => {
+                    navigate("/dashboard-admin/paper")
+                }, 2000)
+            }).catch((error) => {
+                setLoading(false)
+                setDialogContent({
+                    title: "Perhatian",
+                    description: error.response.data.message
+                })
+                setIsOpenDialog(true)
+            })
+        }
     }
 
     useEffect(() => {
@@ -127,10 +171,37 @@ export default function AddPaper(){
                         </FormControl>
                     </FormGroup>
                     <FormControl fullWidth>
-                        <ButtonSubmit name={"Submit"}/>
+                        {!loading ?
+                            <ButtonSubmit name={"Submit"}/> :
+                            <LoadingButton loading={true} variant={"contained"} sx={{
+                                textTransform: "capitalize",
+                                marginLeft: "auto",
+                                marginY: 3,
+                            }}>Send</LoadingButton>
+                        }
                     </FormControl>
                 </form>
             </Box>
+
+            <Dialog open={isOpenDialog}
+                    onClose={() => setIsOpenDialog(false)}
+                    fullWidth={true}
+                    maxWidth={"sm"}
+            >
+                <DialogTitle>{dialogContent.title}</DialogTitle>
+                <DialogContent>
+                    {dialogContent.description}
+                </DialogContent>
+                <DialogActions>
+                    <Button sx={{
+                        textTransform: "capitalize"
+                    }} variant={"contained"} onClick={() => setIsOpenDialog(false)} autoFocus>
+                        Tutup
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Toaster/>
         </>
     )
 }

@@ -79,7 +79,11 @@ export default function AddThesis(){
                 }, 2000)
             }).catch((error) => {
                 setLoading(false)
-                console.log(error)
+                setDialogContent({
+                    title: "Perhatian",
+                    description: error.response.data.message
+                })
+                setIsOpenDialog(true)
             })
         }
     }
